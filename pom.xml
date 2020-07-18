@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.7</version>
+			<version>2.9.10.5</version>
 		</dependency>
 		<!--加入log4j 便于深入学习整合运行过程的一些细节-->
 		<dependency>
