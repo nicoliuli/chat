@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 将model转json
  */
-public class JsonMsgEncoder extends MessageToMessageEncoder<ChatMsg> {
-
+public class Msg2JsonEncoder extends MessageToMessageEncoder<ChatMsg> {
 
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, ChatMsg chatMsg, List<Object> list) throws Exception {

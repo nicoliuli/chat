@@ -11,5 +11,11 @@
 
     <artifactId>chat-client</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.stx</groupId>
+            <artifactId>chat-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

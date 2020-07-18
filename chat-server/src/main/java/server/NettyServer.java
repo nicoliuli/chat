@@ -1,8 +1,8 @@
 package server;
 
 import constants.PropertiesFile;
-import handler.JsonMsgDecoder;
-import handler.JsonMsgEncoder;
+import handler.Json2MsgDecoder;
+import handler.Msg2JsonEncoder;
 import handler.ServerBisHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -56,12 +56,12 @@ public class NettyServer {
             //in解码
             ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024,0,4,0,4));
             ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
-            ch.pipeline().addLast(new JsonMsgDecoder());
+            ch.pipeline().addLast(new Json2MsgDecoder());
             ch.pipeline().addLast("serverBisHandler",new ServerBisHandler());
             //out编码
             ch.pipeline().addLast(new LengthFieldPrepender(4));
             ch.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
-            ch.pipeline().addLast(new JsonMsgEncoder());
+            ch.pipeline().addLast(new Msg2JsonEncoder());
         }
     }
 }

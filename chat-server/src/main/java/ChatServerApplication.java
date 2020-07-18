@@ -6,18 +6,18 @@ import utils.ZkUtil;
 
 public class ChatServerApplication {
 
-    public static void main(String[] args) throws Exception{
-        onInit();
+    public static void main(String[] args) throws Exception {
+        startup();
     }
 
-    public static void onInit(){
+    public static void startup() {
         ZkUtil.connection();
         RedisUtil.connection();
         ChatMsgConsumer.start();
         new NettyServer().bind(PropertiesFile.port);
     }
 
-    public static  void shutdown(){
+    public static void shutdown() {
         ZkUtil.disConnection();
         RedisUtil.disConnection();
     }
