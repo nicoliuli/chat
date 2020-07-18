@@ -61,7 +61,7 @@ public class ZkUtil {
      * @param port
      */
     public static void registerNettyServerNode(String host, Integer port) {
-        String node = host + ":" + port;
+        String node = NodeUtil.node(host,port);
         try {
             zk.create(ZK_PATH + BIZ_PATH + "/" + node, node.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
                     CreateMode.EPHEMERAL);

@@ -1,5 +1,6 @@
 package server;
 
+import constants.PropertiesFile;
 import handler.JsonMsgDecoder;
 import handler.ServerBisHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -35,7 +36,7 @@ public class NettyServer {
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if(future.isSuccess()){
                         System.out.println("启动成功了");
-                        ZkUtil.registerNettyServerNode(Inet4Address.getLocalHost().getHostAddress(),8080);
+                        ZkUtil.registerNettyServerNode(Inet4Address.getLocalHost().getHostAddress(), PropertiesFile.port);
                     }
                 }
             });

@@ -9,8 +9,8 @@ public class RedisUtil {
     public static void connection(){
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(30);
-        config.setMaxIdle(2);
-        config.setMaxWaitMillis(5000);
+        config.setMaxIdle(0);
+        config.setMaxWaitMillis(10000);
 
         JedisPool pool = new JedisPool(config, "127.0.0.1", 6379);
         jedis = pool.getResource();
