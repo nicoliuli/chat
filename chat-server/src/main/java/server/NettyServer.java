@@ -2,6 +2,7 @@ package server;
 
 import constants.PropertiesFile;
 import handler.JsonMsgDecoder;
+import handler.JsonMsgEncoder;
 import handler.ServerBisHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -60,7 +61,7 @@ public class NettyServer {
             //out编码
             ch.pipeline().addLast(new LengthFieldPrepender(4));
             ch.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
-
+            ch.pipeline().addLast(new JsonMsgEncoder());
         }
     }
 }
