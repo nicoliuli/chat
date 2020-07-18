@@ -1,5 +1,5 @@
 import constants.PropertiesFile;
-import mq.ChatMsgConsumer;
+import listener.ChatMsgConsumer;
 import server.NettyServer;
 import utils.RedisUtil;
 import utils.ZkUtil;

@@ -1,5 +1,6 @@
 package utils;
 
+import constants.PropertiesFile;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
@@ -17,7 +18,7 @@ public class ZkUtil {
      */
     public static void connection() {
         try {
-            zk = new ZooKeeper("127.0.0.1:2181", 10000, new Watcher() {
+            zk = new ZooKeeper(PropertiesFile.ZK_HOST, 10000, new Watcher() {
                 // 监控所有被触发的事件
                 public void process(WatchedEvent event) {
 

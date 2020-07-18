@@ -4,9 +4,10 @@ import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
 public class PropertiesFile {
+    // NettyServer启动监听端口
     public static final Integer port = 8080;
+    // 该节点的host
     public static final String host = getHost();
-
 
     public static String getHost() {
         String hostAddress = "";
@@ -18,4 +19,9 @@ public class PropertiesFile {
         }
         return hostAddress;
     }
+
+    public static final String REDIS_HOST = "127.0.0.1";
+    public static final Integer REDIS_PORT = 6379;
+
+    public static final String ZK_HOST = "127.0.0.1:2181";
 }

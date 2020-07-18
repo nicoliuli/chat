@@ -1,4 +1,4 @@
-package mq;
+package listener;
 
 import constants.PropertiesFile;
 import utils.CollectionUtil;

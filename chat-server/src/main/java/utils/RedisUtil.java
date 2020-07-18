@@ -1,5 +1,6 @@
 package utils;
 
+import constants.PropertiesFile;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -12,7 +13,7 @@ public class RedisUtil {
         config.setMaxIdle(0);
         config.setMaxWaitMillis(10000);
 
-        JedisPool pool = new JedisPool(config, "127.0.0.1", 6379);
+        JedisPool pool = new JedisPool(config, PropertiesFile.REDIS_HOST, PropertiesFile.REDIS_PORT);
         jedis = pool.getResource();
     }
 

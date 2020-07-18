@@ -3,7 +3,7 @@ package handler;
 import com.alibaba.fastjson.JSON;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
-import model.ChatMsg;
+import model.chat.ChatMsg;
 
 import java.util.List;
 
