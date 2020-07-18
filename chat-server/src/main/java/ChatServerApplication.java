@@ -11,10 +11,15 @@ public class ChatServerApplication {
     }
 
     public static void startup() {
-        ZkUtil.connection();
-        RedisUtil.connection();
-        ChatMsgConsumer.start();
-        new NettyServer().bind(PropertiesFile.port);
+        try{
+            ZkUtil.connection();
+            RedisUtil.connection();
+            // 开启队列监听
+            ChatMsgConsumer.start();
+            new NettyServer().bind(PropertiesFile.port);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void shutdown() {

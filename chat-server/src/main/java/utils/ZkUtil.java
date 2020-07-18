@@ -16,29 +16,27 @@ public class ZkUtil {
     /**
      * 连接zk，并创建相应的节点
      */
-    public static void connection() {
-        try {
-            zk = new ZooKeeper(PropertiesFile.ZK_HOST, 10000, new Watcher() {
-                // 监控所有被触发的事件
-                public void process(WatchedEvent event) {
+    public static void connection() throws Exception {
 
-                }
-            });
-            Stat zkPath = null;
-            zkPath = zk.exists(ZK_PATH, false);
-            if (zkPath == null) {
-                zk.create(ZK_PATH, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                        CreateMode.PERSISTENT);
-            }
+        zk = new ZooKeeper(PropertiesFile.ZK_HOST, 10000, new Watcher() {
+            // 监控所有被触发的事件
+            public void process(WatchedEvent event) {
 
-            Stat bizPath = zk.exists(ZK_PATH + BIZ_PATH, false);
-            if (bizPath == null) {
-                zk.create(ZK_PATH + BIZ_PATH, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                        CreateMode.PERSISTENT);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        });
+        Stat zkPath = null;
+        zkPath = zk.exists(ZK_PATH, false);
+        if (zkPath == null) {
+            zk.create(ZK_PATH, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                    CreateMode.PERSISTENT);
         }
+
+        Stat bizPath = zk.exists(ZK_PATH + BIZ_PATH, false);
+        if (bizPath == null) {
+            zk.create(ZK_PATH + BIZ_PATH, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                    CreateMode.PERSISTENT);
+        }
+
     }
 
     /**

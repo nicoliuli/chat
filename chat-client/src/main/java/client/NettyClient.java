@@ -35,7 +35,7 @@ public class NettyClient {
                     }
                 }
             });
-
+            this.channel = f.channel();
 
             f.channel().closeFuture().sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override

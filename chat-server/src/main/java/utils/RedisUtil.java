@@ -7,7 +7,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisUtil {
     public static Jedis jedis = null;
-    public static void connection(){
+    public static void connection() throws Exception{
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(30);
         config.setMaxIdle(0);

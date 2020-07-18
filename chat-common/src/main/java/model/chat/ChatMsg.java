@@ -100,4 +100,18 @@ public class ChatMsg {
     public void setChatType(Integer chatType) {
         this.chatType = chatType;
     }
+
+    @Override
+    public String toString() {
+        return "ChatMsg{" +
+                "msgId='" + msgId + '\'' +
+                ", fromUid=" + fromUid +
+                ", toUid=" + toUid +
+                ", format=" + format +
+                ", msgType=" + msgType +
+                ", chatType=" + chatType +
+                ", timestamp=" + timestamp +
+                ", body=" + body +
+                '}';
+    }
 }
