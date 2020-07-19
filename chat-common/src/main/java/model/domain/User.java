@@ -1,19 +1,19 @@
 package model.domain;
 
 public class User {
-    public User(Integer uid, String name) {
+    public User(Long uid, String name) {
         this.uid = uid;
         this.name = name;
     }
 
-    private Integer uid;
+    private Long uid;
     private String name;
 
-    public Integer getUid() {
+    public Long getUid() {
         return uid;
     }
 
-    public void setUid(Integer uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 

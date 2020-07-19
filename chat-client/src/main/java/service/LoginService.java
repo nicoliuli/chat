@@ -1,5 +1,6 @@
 package service;
 
+import constans.RedisKey;
 import io.netty.util.internal.StringUtil;
 import redis.clients.jedis.Jedis;
 import utils.RedisUtil;
@@ -34,7 +35,7 @@ public class LoginService {
         Jedis jedis = null;
         try {
             jedis = RedisUtil.getJedis();
-            String user = jedis.hget("chat:user:map", id);
+            String user = jedis.hget(RedisKey.userMapKey(), id);
             if (StringUtil.isNullOrEmpty(user)) {
                 return -1L;
             }
