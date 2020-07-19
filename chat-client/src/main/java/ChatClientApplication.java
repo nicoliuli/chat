@@ -1,4 +1,6 @@
 import client.NettyClient;
+import service.LoginService;
+import utils.RedisUtil;
 import utils.ZkUtil;
 
 public class ChatClientApplication {
@@ -10,7 +12,16 @@ public class ChatClientApplication {
         try {
             // 连接zk
             ZkUtil.connection();
-            // 获取NettyServer连接信息
+            RedisUtil.connection();
+            // 登录
+            boolean login = false;
+            do{
+                login = LoginService.login();
+                if(!login){
+                    System.out.println("该用户不存在，请重重新登录！");
+                }
+            }while (!login);
+            // 获w取NettyServer连接信息
             String[] server = ZkUtil.getRandomServer();
             new NettyClient().connect(server[0],Integer.parseInt(server[1]));
         } catch (Exception e) {

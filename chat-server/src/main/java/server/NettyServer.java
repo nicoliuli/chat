@@ -1,6 +1,5 @@
 package server;
 
-import constants.PropertiesFile;
 import handler.Json2MsgDecoder;
 import handler.Msg2JsonEncoder;
 import handler.ServerBisHandler;
@@ -16,6 +15,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import properties.PropertiesFile;
 import utils.ZkUtil;
 
 import java.net.Inet4Address;

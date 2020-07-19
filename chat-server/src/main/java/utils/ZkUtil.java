@@ -1,8 +1,8 @@
 package utils;
 
-import constants.PropertiesFile;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
+import properties.PropertiesFile;
 
 /**
  * zk工具类

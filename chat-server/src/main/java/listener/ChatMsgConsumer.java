@@ -1,6 +1,7 @@
 package listener;
 
-import constants.PropertiesFile;
+import properties.PropertiesFile;
+import redis.clients.jedis.Jedis;
 import utils.CollectionUtil;
 import utils.NodeUtil;
 import utils.RedisUtil;
@@ -20,16 +21,25 @@ public class ChatMsgConsumer {
 
     private static void consumer() {
         while (true) {
-            List<String> msg = RedisUtil.jedis.brpop(Integer.MAX_VALUE, NodeUtil.node(PropertiesFile.host, PropertiesFile.port), NodeUtil.node(PropertiesFile.host, PropertiesFile.port));
-            if (CollectionUtil.isEmpty(msg)) {
-                System.out.println("消费的消息为空");
-                continue;
+            Jedis jedis = null;
+            try {
+                jedis = RedisUtil.getJedis();
+                List<String> msg = jedis.brpop(Integer.MAX_VALUE, NodeUtil.node(PropertiesFile.host, PropertiesFile.port), NodeUtil.node(PropertiesFile.host, PropertiesFile.port));
+                if (CollectionUtil.isEmpty(msg)) {
+                    System.out.println("消费的消息为空");
+                    continue;
+                }
+                if (msg.size() == 2) {
+                    String msgString = msg.get(1);
+                    // 解析消息并分发
+                    System.out.println(msgString);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                jedis.close();
             }
-            if (msg.size() == 2) {
-                String msgString = msg.get(1);
-                // 解析消息并分发
-                System.out.println(msgString);
-            }
+
         }
     }
 }

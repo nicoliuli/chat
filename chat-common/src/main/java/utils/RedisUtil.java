@@ -1,27 +1,39 @@
 package utils;
 
-import constants.PropertiesFile;
+import properties.PropertiesFile;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisUtil {
-    public static Jedis jedis = null;
+    private static Jedis jedis = null;
+    private static JedisPool pool = null;
     public static void connection() throws Exception{
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(30);
         config.setMaxIdle(0);
         config.setMaxWaitMillis(10000);
 
-        JedisPool pool = new JedisPool(config, PropertiesFile.REDIS_HOST, PropertiesFile.REDIS_PORT);
+        pool = new JedisPool(config, PropertiesFile.REDIS_HOST, PropertiesFile.REDIS_PORT);
         jedis = pool.getResource();
     }
 
+    /**
+     * 获取jedis
+     * @return
+     * @throws Exception
+     */
+    public static Jedis getJedis() throws Exception {
+        if(pool == null){
+           throw new Exception("get Jedis fail");
+        }
+        return pool.getResource();
 
+    }
 
     public static void disConnection(){
         if (jedis != null){
-            jedis.close();
+            jedis.disconnect();
         }
     }
 }

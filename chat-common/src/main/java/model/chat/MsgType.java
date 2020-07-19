@@ -13,4 +13,9 @@ public class MsgType {
      * ack消息
      */
     public static Integer MSGTYPE_ACK = 2;
+
+    /**
+     * 登录消息
+     */
+    public static Integer MSGTYPE_LOGIN = 3;
 }
