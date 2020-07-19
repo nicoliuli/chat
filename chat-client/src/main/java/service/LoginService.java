@@ -7,27 +7,44 @@ import utils.RedisUtil;
 import java.util.Scanner;
 
 public class LoginService {
-    public static boolean login(){
+    public static Long login() {
+        // 登录
+        Long loginUid = -1L;
+        do {
+            loginUid = doLogin();
+            if (loginUid > 0L) {
+                break;
+            }
+            System.out.println("该用户不存在，请重新登录！");
+        } while (true);
+        return loginUid;
+    }
+
+    /**
+     *  返回登录的uid
+     * @return
+     */
+    private static Long doLogin() {
         System.out.print("请输入用户id：");
         Scanner sc = new Scanner(System.in);
         String id = null;
-        if(sc.hasNextLine()){
-             id = sc.next();
+        if (sc.hasNextLine()) {
+            id = sc.next();
         }
         Jedis jedis = null;
-        try{
+        try {
             jedis = RedisUtil.getJedis();
             String user = jedis.hget("chat:user:map", id);
-            if(StringUtil.isNullOrEmpty(user)){
-                return false;
+            if (StringUtil.isNullOrEmpty(user)) {
+                return -1L;
             }
-        }catch (Exception e){
-
-        }finally {
-            if(jedis != null){
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (jedis != null) {
                 jedis.close();
             }
         }
-        return true;
+        return Long.parseLong(id);
     }
 }

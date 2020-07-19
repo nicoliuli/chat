@@ -3,6 +3,7 @@ package handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import model.chat.ChatMsg;
+import utils.MsgProcessor;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -34,8 +35,7 @@ public class ServerBisHandler extends SimpleChannelInboundHandler<ChatMsg> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ChatMsg chatMsg) throws Exception {
-
-
+        MsgProcessor.msgProcessor(ctx.channel(),chatMsg);
     }
 
 

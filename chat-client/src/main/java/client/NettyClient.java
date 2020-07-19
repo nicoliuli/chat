@@ -15,9 +15,17 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import utils.ChannelUtil;
 
 public class NettyClient {
-    private Channel channel;
+    /**
+     * 当前客户端的uid
+     */
+    private Long uid;
+
+    public NettyClient(Long uid) {
+        this.uid = uid;
+    }
 
     public void connect(String host, int port) throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
@@ -27,7 +35,7 @@ public class NettyClient {
                     .option(ChannelOption.TCP_NODELAY, true)
                     .handler(new ChildChannelHandler());
 
-            ChannelFuture f = b.connect(host, port).addListener(new GenericFutureListener<Future<? super Void>>() {
+            ChannelFuture f = b.connect(host, port).sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if (future.isSuccess()) {
@@ -35,7 +43,7 @@ public class NettyClient {
                     }
                 }
             });
-            this.channel = f.channel();
+            ChannelUtil.sengLoginMsg(f.channel(),this.uid);
 
             f.channel().closeFuture().sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override
