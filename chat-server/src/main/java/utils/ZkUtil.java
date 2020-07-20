@@ -2,7 +2,7 @@ package utils;
 
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
-import properties.PropertiesFile;
+import properties.CommonPropertiesFile;
 
 /**
  * zk工具类
@@ -18,7 +18,7 @@ public class ZkUtil {
      */
     public static void connection() throws Exception {
 
-        zk = new ZooKeeper(PropertiesFile.ZK_HOST, 10000, new Watcher() {
+        zk = new ZooKeeper(CommonPropertiesFile.ZK_HOST, 10000, new Watcher() {
             // 监控所有被触发的事件
             public void process(WatchedEvent event) {
 

@@ -1,6 +1,6 @@
 package utils;
 
-import properties.PropertiesFile;
+import properties.CommonPropertiesFile;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -15,7 +15,7 @@ public class RedisUtil {
         config.setMaxIdle(0);
         config.setMaxWaitMillis(10000);
 
-        pool = new JedisPool(config, PropertiesFile.REDIS_HOST, PropertiesFile.REDIS_PORT);
+        pool = new JedisPool(config, CommonPropertiesFile.REDIS_HOST, CommonPropertiesFile.REDIS_PORT);
         jedis = pool.getResource();
     }
 

@@ -15,7 +15,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import properties.PropertiesFile;
+import properties.CommonPropertiesFile;
 import utils.ZkUtil;
 
 import java.net.Inet4Address;
@@ -37,7 +37,7 @@ public class NettyServer {
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if(future.isSuccess()){
                         System.out.println("启动成功了");
-                        ZkUtil.registerNettyServerNode(Inet4Address.getLocalHost().getHostAddress(), PropertiesFile.port);
+                        ZkUtil.registerNettyServerNode(Inet4Address.getLocalHost().getHostAddress(), CommonPropertiesFile.port);
                     }
                 }
             });

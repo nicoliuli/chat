@@ -33,8 +33,9 @@ public class ServerSession {
         this.channel = channel;
     }
 
-    public void bind(){
+    public ServerSession bind(){
         this.channel.attr(SESSION_KEY).set(this);
         ServerSessionMap.add(this.user.getUid(),this);
+        return this;
     }
 }

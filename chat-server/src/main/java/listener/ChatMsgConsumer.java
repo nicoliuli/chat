@@ -1,6 +1,6 @@
 package listener;
 
-import properties.PropertiesFile;
+import properties.CommonPropertiesFile;
 import redis.clients.jedis.Jedis;
 import utils.CollectionUtil;
 import utils.NodeUtil;
@@ -24,7 +24,7 @@ public class ChatMsgConsumer {
             Jedis jedis = null;
             try {
                 jedis = RedisUtil.getJedis();
-                List<String> msg = jedis.brpop(Integer.MAX_VALUE, NodeUtil.node(PropertiesFile.host, PropertiesFile.port), NodeUtil.node(PropertiesFile.host, PropertiesFile.port));
+                List<String> msg = jedis.brpop(Integer.MAX_VALUE, NodeUtil.node(CommonPropertiesFile.host, CommonPropertiesFile.port), NodeUtil.node(CommonPropertiesFile.host, CommonPropertiesFile.port));
                 if (CollectionUtil.isEmpty(msg)) {
                     System.out.println("消费的消息为空");
                     continue;
@@ -32,7 +32,7 @@ public class ChatMsgConsumer {
                 if (msg.size() == 2) {
                     String msgString = msg.get(1);
                     // 解析消息并分发
-                    System.out.println(msgString);
+                    System.out.println("来自其他集群的消息："+msgString);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

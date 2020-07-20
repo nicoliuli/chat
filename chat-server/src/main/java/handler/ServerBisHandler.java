@@ -14,20 +14,14 @@ public class ServerBisHandler extends SimpleChannelInboundHandler<ChatMsg> {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("断开连接，当前连接数：" + connectionCount.decrementAndGet());
+        // 删除本地会话和集群会话
+        MsgProcessor.channelInactive(ctx.channel());
+
         ctx.fireChannelInactive();
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//        for(int i=0;i<100;i++){
-//            ChatMsg chatMsg = new ChatMsg();
-//            chatMsg.setMsgId(UUID.randomUUID().toString());
-//            chatMsg.setTimestamp(System.currentTimeMillis());
-//            chatMsg.setMsgType(MsgType.MSGTYPE_CHAT);
-//
-//            ctx.channel().writeAndFlush(chatMsg);
-//        }
-
         System.out.println("有新连接了，当前连接数：" + connectionCount.incrementAndGet());
         ctx.fireChannelActive();
 
@@ -35,7 +29,7 @@ public class ServerBisHandler extends SimpleChannelInboundHandler<ChatMsg> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ChatMsg chatMsg) throws Exception {
-        MsgProcessor.msgProcessor(ctx.channel(),chatMsg);
+        MsgProcessor.msgProcessor(ctx.pipeline().channel(),chatMsg);
     }
 
 

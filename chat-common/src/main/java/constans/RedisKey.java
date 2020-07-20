@@ -17,6 +17,6 @@ public class RedisKey {
      * @return
      */
     public static String sessionStore(Long uid) {
-        return "chat:user:session" + uid;
+        return "chat:user:session:" + uid;
     }
 }
