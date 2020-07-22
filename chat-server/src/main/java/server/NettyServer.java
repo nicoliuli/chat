@@ -1,5 +1,6 @@
 package server;
 
+import handler.IdleTimeoutHandler;
 import handler.Json2MsgDecoder;
 import handler.Msg2JsonEncoder;
 import handler.ServerBisHandler;
@@ -12,6 +13,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
@@ -19,6 +21,7 @@ import properties.CommonPropertiesFile;
 import utils.ZkUtil;
 
 import java.net.Inet4Address;
+import java.util.concurrent.TimeUnit;
 
 public class NettyServer {
     public static Channel channel = null;
@@ -36,7 +39,7 @@ public class NettyServer {
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if(future.isSuccess()){
-                        System.out.println("启动成功了");
+                        System.out.println("server启动成功了");
                         ZkUtil.registerNettyServerNode(Inet4Address.getLocalHost().getHostAddress(), CommonPropertiesFile.port);
                     }
                 }
@@ -57,6 +60,8 @@ public class NettyServer {
             ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024,0,4,0,4));
             ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
             ch.pipeline().addLast(new Json2MsgDecoder());
+            ch.pipeline().addLast(new IdleStateHandler(10,10,0, TimeUnit.SECONDS));
+            ch.pipeline().addLast(new IdleTimeoutHandler());
             ch.pipeline().addLast("serverBisHandler",new ServerBisHandler());
             //out编码
             ch.pipeline().addLast(new LengthFieldPrepender(4));

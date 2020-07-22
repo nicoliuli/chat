@@ -1,10 +1,14 @@
 package client;
 
 import handler.ClientBisHandler;
+import handler.ClientPongHandler;
 import handler.Json2MsgDecoder;
 import handler.Msg2JsonEncoder;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -44,6 +48,7 @@ public class NettyClient {
                 }
             });
             ChannelUtil.sengLoginMsg(f.channel(),this.uid);
+            ChannelUtil.startSendPingMsgSchedul(f.channel(),this.uid);
 
             f.channel().closeFuture().sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override
@@ -65,6 +70,7 @@ public class NettyClient {
             ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
             ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
             ch.pipeline().addLast(new Json2MsgDecoder());
+            ch.pipeline().addLast(new ClientPongHandler());
             ch.pipeline().addLast(new ClientBisHandler());
             //out编码
             ch.pipeline().addLast(new LengthFieldPrepender(4));
@@ -72,4 +78,6 @@ public class NettyClient {
             ch.pipeline().addLast(new Msg2JsonEncoder());
         }
     }
+
+
 }

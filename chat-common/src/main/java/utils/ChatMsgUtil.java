@@ -44,4 +44,32 @@ public class ChatMsgUtil {
         chatMsg.setBody(body);
         return chatMsg;
     }
+
+    /**
+     * 构建私PING消息
+     * @return
+     */
+    public static ChatMsg buildPingMsg(Long fromUid){
+        ChatMsg chatMsg = new ChatMsg();
+
+        chatMsg.setMsgType(MsgType.MSGTYPE_PING);
+        chatMsg.setMsgId(UUID.randomUUID().toString());
+        chatMsg.setTimestamp(System.currentTimeMillis());
+        chatMsg.setFromUid(fromUid);
+        return chatMsg;
+    }
+
+    /**
+     * 构建私PING消息
+     * @return
+     */
+    public static ChatMsg buildPongMsg(Long toUid){
+        ChatMsg chatMsg = new ChatMsg();
+
+        chatMsg.setMsgType(MsgType.MSGTYPE_PONG);
+        chatMsg.setMsgId(UUID.randomUUID().toString());
+        chatMsg.setTimestamp(System.currentTimeMillis());
+        chatMsg.setToUid(toUid);
+        return chatMsg;
+    }
 }
