@@ -1,6 +1,7 @@
 package listener;
 
 import properties.CommonPropertiesFile;
+import properties.PropertiesFile;
 import redis.clients.jedis.Jedis;
 import utils.CollectionUtil;
 import utils.NodeUtil;
@@ -24,7 +25,7 @@ public class ChatMsgConsumer {
             Jedis jedis = null;
             try {
                 jedis = RedisUtil.getJedis();
-                List<String> msg = jedis.brpop(Integer.MAX_VALUE, NodeUtil.node(CommonPropertiesFile.host, CommonPropertiesFile.port), NodeUtil.node(CommonPropertiesFile.host, CommonPropertiesFile.port));
+                List<String> msg = jedis.brpop(Integer.MAX_VALUE, NodeUtil.node(CommonPropertiesFile.host, PropertiesFile.port), NodeUtil.node(CommonPropertiesFile.host, PropertiesFile.port));
                 if (CollectionUtil.isEmpty(msg)) {
                     System.out.println("消费的消息为空");
                     continue;

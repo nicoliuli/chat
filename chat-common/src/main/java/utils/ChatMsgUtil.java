@@ -1,6 +1,7 @@
 package utils;
 
 import model.chat.ChatMsg;
+import model.chat.ChatType;
 import model.chat.MsgFormat;
 import model.chat.MsgType;
 
@@ -29,9 +30,10 @@ public class ChatMsgUtil {
 
     /**
      * 构建私聊天消息
+     *
      * @return
      */
-    public static ChatMsg buildSingleChatMsg(Long fromUid,Long toUid){
+    public static ChatMsg buildSingleChatMsg(Long fromUid, Long toUid) {
         ChatMsg chatMsg = new ChatMsg();
         chatMsg.setFromUid(fromUid);
         chatMsg.setToUid(toUid);
@@ -39,17 +41,19 @@ public class ChatMsgUtil {
         chatMsg.setMsgId(UUID.randomUUID().toString());
         chatMsg.setTimestamp(System.currentTimeMillis());
         chatMsg.setFormat(MsgFormat.FORMAT_TXT);
-        Map<String,Object> body = new HashMap<>();
-        body.put("text","测试发消息，打通链路");
+        chatMsg.setChatType(ChatType.SINGLE);
+        Map<String, Object> body = new HashMap<>();
+        body.put("text", "测试发消息，打通链路");
         chatMsg.setBody(body);
         return chatMsg;
     }
 
     /**
      * 构建私PING消息
+     *
      * @return
      */
-    public static ChatMsg buildPingMsg(Long fromUid){
+    public static ChatMsg buildPingMsg(Long fromUid) {
         ChatMsg chatMsg = new ChatMsg();
 
         chatMsg.setMsgType(MsgType.MSGTYPE_PING);
@@ -61,9 +65,10 @@ public class ChatMsgUtil {
 
     /**
      * 构建私PING消息
+     *
      * @return
      */
-    public static ChatMsg buildPongMsg(Long toUid){
+    public static ChatMsg buildPongMsg(Long toUid) {
         ChatMsg chatMsg = new ChatMsg();
 
         chatMsg.setMsgType(MsgType.MSGTYPE_PONG);

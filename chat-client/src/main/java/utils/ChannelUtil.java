@@ -1,6 +1,7 @@
 package utils;
 
 import io.netty.channel.Channel;
+import model.chat.ChatMsg;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,22 +20,23 @@ public class ChannelUtil {
      * @param fromUid
      */
     public static void startSendPingMsgSchedul(Channel channel,Long fromUid) {
-        /*new Thread(() -> {
-            try {
-
-                while (true) {
-                    Thread.sleep(1000);
-                    channel.writeAndFlush(ChatMsgUtil.buildPingMsg(fromUid));
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();*/
         channel.eventLoop().scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 channel.writeAndFlush(ChatMsgUtil.buildPingMsg(fromUid));
             }
         },1,1, TimeUnit.SECONDS);
+    }
+
+    public static void sendClustorMsgSchedule(Channel channel,Long fromUid,Long toUid){
+        ChatMsg chatMsg = ChatMsgUtil.buildSingleChatMsg(fromUid, toUid);
+
+        channel.eventLoop().scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                channel.writeAndFlush(chatMsg);
+                System.out.println(fromUid+" 给 "+toUid+" 发定时消息");
+            }
+        },1,1,TimeUnit.SECONDS);
     }
 }

@@ -19,6 +19,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import properties.PropertiesFile;
 import utils.ChannelUtil;
 
 public class NettyClient {
@@ -49,6 +50,8 @@ public class NettyClient {
             });
             ChannelUtil.sengLoginMsg(f.channel(),this.uid);
             ChannelUtil.startSendPingMsgSchedul(f.channel(),this.uid);
+            // 模拟给otherUid发送私聊消息
+            ChannelUtil.sendClustorMsgSchedule(f.channel(),this.uid, PropertiesFile.otherUid);
 
             f.channel().closeFuture().sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override

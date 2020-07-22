@@ -3,9 +3,11 @@ package properties;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
+/**
+ * 通用的配置文件
+ */
 public class CommonPropertiesFile {
-    // NettyServer启动监听端口
-    public static final Integer port = 8080;
+
     // 该节点的host
     public static final String host = getHost();
 

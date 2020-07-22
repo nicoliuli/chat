@@ -8,9 +8,11 @@ import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import model.chat.ChatMsg;
+import model.chat.ChatType;
 import model.chat.MsgType;
 import model.domain.User;
 import properties.CommonPropertiesFile;
+import properties.PropertiesFile;
 import redis.clients.jedis.Jedis;
 import session.ServerSession;
 import session.ServerSessionMap;
@@ -33,7 +35,7 @@ public class MsgProcessor {
                 ServerSessionMap.add(chatMsg.getFromUid(), session);
 
                 //处理集群会话,value->ip:port
-                jedis.set(RedisKey.sessionStore(chatMsg.getFromUid()), NodeUtil.node(CommonPropertiesFile.getHost(), CommonPropertiesFile.port));
+                jedis.set(RedisKey.sessionStore(chatMsg.getFromUid()), NodeUtil.node(CommonPropertiesFile.getHost(), PropertiesFile.port));
                 // 暂时模拟向其他用户发消息，打通链路
             } catch (Exception e) {
                 e.printStackTrace();
@@ -42,7 +44,12 @@ public class MsgProcessor {
                     jedis.close();
                 }
             }
+        } else if (chatMsg.getMsgType() == MsgType.MSGTYPE_CHAT) { // 聊天消息
+        if (chatMsg.getChatType() == ChatType.SINGLE) {
+            System.out.println("收到client fromUid= " + chatMsg.getFromUid() + " 的消息");
+            SendMsgUtil.sendMsg(chatMsg);
         }
+    }
     }
 
     /**

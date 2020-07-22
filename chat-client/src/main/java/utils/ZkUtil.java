@@ -1,6 +1,6 @@
 package utils;
 
-import constants.PropertiesFile;
+import properties.PropertiesFile;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
