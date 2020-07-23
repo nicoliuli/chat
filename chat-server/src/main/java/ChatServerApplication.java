@@ -1,6 +1,7 @@
 import dao.InitDao;
 import listener.ChatMsgConsumer;
 import properties.PropertiesFile;
+import properties.PropertiesSchdule;
 import server.NettyServer;
 import utils.RedisUtil;
 import utils.ZkUtil;
@@ -13,6 +14,7 @@ public class ChatServerApplication {
 
     public static void startup() {
         try{
+            PropertiesSchdule.loadProperties();
             ZkUtil.connection();
             RedisUtil.connection();
             // 开启队列监听

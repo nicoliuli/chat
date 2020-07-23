@@ -25,44 +25,52 @@ import java.util.concurrent.TimeUnit;
 
 public class NettyServer {
     public static Channel channel = null;
+
     public void bind(int port) {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        try{
+        try {
             ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup,workerGroup)
+            b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_BACKLOG,1024)
+                    .option(ChannelOption.SO_BACKLOG, 1024)
                     .childHandler(new ChildChannelHandler());
             ChannelFuture f = b.bind(port).sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
-                    if(future.isSuccess()){
+                    if (future.isSuccess()) {
                         System.out.println("server启动成功了");
                         ZkUtil.registerNettyServerNode(Inet4Address.getLocalHost().getHostAddress(), PropertiesFile.port);
                     }
                 }
             });
             channel = f.channel();
-            f.channel().closeFuture().sync();
-        }catch (Exception e){
+            f.channel().closeFuture().sync().addListener(new GenericFutureListener<Future<? super Void>>() {
+                @Override
+                public void operationComplete(Future<? super Void> future) throws Exception {
+                    System.out.println("关闭1");
+                }
+            });
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
+            System.out.println("关闭2");
         }
     }
-     private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
+
+    private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 
         protected void initChannel(SocketChannel ch) throws Exception {
             //in解码
-            ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024,0,4,0,4));
+            ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
             ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
             ch.pipeline().addLast(new Json2MsgDecoder());
-            ch.pipeline().addLast(new IdleStateHandler(10,10,0, TimeUnit.SECONDS));
+            ch.pipeline().addLast(new IdleStateHandler(10, 10, 0, TimeUnit.SECONDS));
             ch.pipeline().addLast(new IdleTimeoutHandler());
-            ch.pipeline().addLast("serverBisHandler",new ServerBisHandler());
+            ch.pipeline().addLast("serverBisHandler", new ServerBisHandler());
             //out编码
             ch.pipeline().addLast(new LengthFieldPrepender(4));
             ch.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));

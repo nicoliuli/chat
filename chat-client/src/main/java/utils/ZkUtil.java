@@ -37,6 +37,7 @@ public class ZkUtil {
             throw new Exception("获取NettyServer信息失败");
         }
         int size = childrens.size();
+        // 随机获取server连接，后期可扩展负载均衡算法
         String child = childrens.get(new Random().nextInt(size));
         System.out.println("get server is : "+child);
         //ip:port格式
