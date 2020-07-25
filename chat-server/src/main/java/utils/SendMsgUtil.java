@@ -21,22 +21,22 @@ public class SendMsgUtil {
         }
         // 判断用户是否在其他节点上
         Jedis jedis = null;
-        try{
+        try {
             jedis = RedisUtil.getJedis();
             // 获取会话 格式  ip:port
             String sessionStr = jedis.get(RedisKey.sessionStore(toUid));
-            if(StringUtil.isNullOrEmpty(sessionStr)){
+            if (StringUtil.isNullOrEmpty(sessionStr)) {
                 System.out.println("uid=" + toUid + "的用户没有登录");
                 return;
             }
             String[] hostPort = sessionStr.split(":");
             // 发给对应节点的所监听的队列
             jedis.lpush(NodeUtil.node(hostPort[0], Integer.parseInt(hostPort[1])), JSON.toJSONString(chatMsg));
-            System.out.println("消息发向"+hostPort[0]+":"+hostPort[1]+"节点");
-        }catch (Exception e){
+            System.out.println("消息发向" + hostPort[0] + ":" + hostPort[1] + "节点");
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(jedis != null){
+        } finally {
+            if (jedis != null) {
                 jedis.close();
             }
         }

@@ -5,9 +5,7 @@ import model.chat.ChatType;
 import model.chat.MsgFormat;
 import model.chat.MsgType;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 构建消息体工具类
@@ -33,7 +31,7 @@ public class ChatMsgUtil {
      *
      * @return
      */
-    public static ChatMsg buildSingleChatMsg(Long fromUid, Long toUid) {
+    public static ChatMsg buildSingleChatMsg(Long fromUid, Long toUid,String text) {
         ChatMsg chatMsg = new ChatMsg();
         chatMsg.setFromUid(fromUid);
         chatMsg.setToUid(toUid);
@@ -43,8 +41,30 @@ public class ChatMsgUtil {
         chatMsg.setFormat(MsgFormat.FORMAT_TXT);
         chatMsg.setChatType(ChatType.SINGLE);
         Map<String, Object> body = new HashMap<>();
-        body.put("text", "测试发消息，打通链路");
+        body.put("text", text);
         chatMsg.setBody(body);
+        return chatMsg;
+    }
+
+    public static ChatMsg buildGroupChatMsg(Long fromUid, List<String> toUids, String text){
+        ChatMsg chatMsg = new ChatMsg();
+        chatMsg.setFromUid(fromUid);
+   //     chatMsg.setToUid(toUid);
+        chatMsg.setMsgType(MsgType.MSGTYPE_CHAT);
+        chatMsg.setMsgId(UUID.randomUUID().toString());
+        chatMsg.setTimestamp(System.currentTimeMillis());
+        chatMsg.setFormat(MsgFormat.FORMAT_TXT);
+        chatMsg.setChatType(ChatType.GROUP);
+        Map<String, Object> body = new HashMap<>();
+        body.put("text", text);
+        chatMsg.setBody(body);
+        if(!CollectionUtil.isEmpty(toUids)){
+            List<Long> toUidList = new ArrayList<>();
+            for (String toUid : toUids) {
+                toUidList.add(Long.parseLong(toUid));
+            }
+            chatMsg.setToUidList(toUidList);
+        }
         return chatMsg;
     }
 

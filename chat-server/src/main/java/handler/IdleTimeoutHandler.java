@@ -10,6 +10,8 @@ import utils.MsgProcessor;
 
 public class IdleTimeoutHandler extends SimpleChannelInboundHandler<ChatMsg> {
 
+    private MsgProcessor msgProcessor = new MsgProcessor();
+
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -17,7 +19,7 @@ public class IdleTimeoutHandler extends SimpleChannelInboundHandler<ChatMsg> {
         switch (event.state()){
             case READER_IDLE:
                 System.out.println("读超时");
-                MsgProcessor.chennelReadTimeoutEvent(ctx.pipeline().channel());
+                msgProcessor.chennelReadTimeoutEvent(ctx.pipeline().channel());
                 break;
             case WRITER_IDLE:
                 System.out.println("写超时");

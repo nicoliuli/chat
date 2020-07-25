@@ -26,7 +26,7 @@ public class LoginService {
      * @return
      */
     private static Long doLogin() {
-        System.out.print("请输入用户id：");
+        System.out.print("请输入登录用户id：");
         Scanner sc = new Scanner(System.in);
         String id = null;
         if (sc.hasNextLine()) {

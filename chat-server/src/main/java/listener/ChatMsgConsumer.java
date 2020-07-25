@@ -1,11 +1,16 @@
 package listener;
 
+import com.alibaba.fastjson.JSON;
+import model.chat.ChatMsg;
 import properties.CommonPropertiesFile;
 import properties.PropertiesMap;
 import redis.clients.jedis.Jedis;
+import session.ServerSession;
+import session.ServerSessionMap;
 import utils.CollectionUtil;
 import utils.NodeUtil;
 import utils.RedisUtil;
+import utils.SendMsgUtil;
 
 import java.util.List;
 
@@ -13,14 +18,14 @@ public class ChatMsgConsumer {
     /**
      * 监听当前节点的队列
      */
-    public static void start() {
+    public void start() {
         new Thread(() -> {
             consumer();
         }).start();
     }
 
 
-    private static void consumer() {
+    private void consumer() {
         while (true) {
             Jedis jedis = null;
             try {
@@ -34,6 +39,12 @@ public class ChatMsgConsumer {
                     String msgString = msg.get(1);
                     // 解析消息并分发
                     System.out.println("来自其他集群的消息：" + msgString);
+                    ChatMsg chatMsg = JSON.parseObject(msgString, ChatMsg.class);
+                    if (checkUserLogin(chatMsg)) {
+                        SendMsgUtil.sendMsg(chatMsg);
+                        continue;
+                    }
+                    System.out.println(chatMsg.getToUid() + " 用户没有登录！");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -43,4 +54,22 @@ public class ChatMsgConsumer {
 
         }
     }
+
+
+    /**
+     * 检查用户channel是否在这个节点上，如果不在，表明这个用户真的没有登录
+     *
+     * @param chatMsg
+     * @return
+     */
+    private boolean checkUserLogin(ChatMsg chatMsg) {
+        Long toUid = chatMsg.getToUid();
+        ServerSession session = ServerSessionMap.getSession(toUid);
+        // 判断用户是否在本节点内有会话
+        if (session != null && session.getChannel() != null) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -17,7 +17,8 @@ public class ChatServerApplication {
             ZkUtil.connection();
             RedisUtil.connection();
             // 开启队列监听
-            ChatMsgConsumer.start();
+            ChatMsgConsumer consumer = new ChatMsgConsumer();
+            consumer.start();
             InitDao.init();
             new NettyServer().bind(Integer.parseInt(PropertiesMap.getProperties("port")));
         }catch (Exception e){

@@ -1,7 +1,6 @@
 package model.chat;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ChatMsg {
     /**
@@ -36,6 +35,11 @@ public class ChatMsg {
      * 消息内容
      */
     private Map<String, Object> body = new HashMap();
+
+    /**
+     * 消息接收方uid列表，主要是为群聊
+     */
+    private Set<Long> toUidList = new HashSet<>();
 
     public String getMsgId() {
         return msgId;
@@ -101,6 +105,14 @@ public class ChatMsg {
         this.chatType = chatType;
     }
 
+    public Set<Long> getToUidList() {
+        return toUidList;
+    }
+
+    public void setToUidList(List<Long> toUidList) {
+        this.toUidList.addAll(toUidList);
+    }
+
     @Override
     public String toString() {
         return "ChatMsg{" +
@@ -112,6 +124,7 @@ public class ChatMsg {
                 ", chatType=" + chatType +
                 ", timestamp=" + timestamp +
                 ", body=" + body +
+                ", toUidList=" + toUidList +
                 '}';
     }
 }
