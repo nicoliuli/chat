@@ -1,7 +1,6 @@
 import dao.InitDao;
 import listener.ChatMsgConsumer;
-import properties.PropertiesFile;
-import properties.PropertiesSchdule;
+import properties.PropertiesMap;
 import server.NettyServer;
 import utils.RedisUtil;
 import utils.ZkUtil;
@@ -14,13 +13,13 @@ public class ChatServerApplication {
 
     public static void startup() {
         try{
-            PropertiesSchdule.loadProperties();
+            PropertiesMap.loadProperties();
             ZkUtil.connection();
             RedisUtil.connection();
             // 开启队列监听
             ChatMsgConsumer.start();
             InitDao.init();
-            new NettyServer().bind(PropertiesFile.port);
+            new NettyServer().bind(Integer.parseInt(PropertiesMap.getProperties("port")));
         }catch (Exception e){
             e.printStackTrace();
         }

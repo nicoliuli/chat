@@ -1,4 +1,5 @@
 import client.NettyClient;
+import properties.PropertiesMap;
 import service.LoginService;
 import utils.RedisUtil;
 import utils.ZkUtil;
@@ -10,6 +11,7 @@ public class ChatClientApplication {
 
     private static void startup() {
         try {
+            PropertiesMap.loadProperties();
             // 连接zk
             ZkUtil.connection();
             RedisUtil.connection();

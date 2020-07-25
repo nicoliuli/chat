@@ -1,9 +1,9 @@
 package utils;
 
-import properties.PropertiesFile;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
+import properties.PropertiesMap;
 
 import java.util.List;
 import java.util.Random;
@@ -18,7 +18,7 @@ public class ZkUtil {
      */
     public static void connection() throws Exception {
 
-        zk = new ZooKeeper(PropertiesFile.ZK_HOST, 10000, new Watcher() {
+        zk = new ZooKeeper(PropertiesMap.getProperties("zk_host"), 10000, new Watcher() {
             // 监控所有被触发的事件
             public void process(WatchedEvent event) {
 

@@ -12,7 +12,7 @@ import model.chat.ChatType;
 import model.chat.MsgType;
 import model.domain.User;
 import properties.CommonPropertiesFile;
-import properties.PropertiesFile;
+import properties.PropertiesMap;
 import redis.clients.jedis.Jedis;
 import session.ServerSession;
 import session.ServerSessionMap;
@@ -43,7 +43,7 @@ public class MsgProcessor {
                 ServerSessionMap.add(chatMsg.getFromUid(), session);
 
                 //处理集群会话,value->ip:port
-                jedis.set(RedisKey.sessionStore(chatMsg.getFromUid()), NodeUtil.node(CommonPropertiesFile.getHost(), PropertiesFile.port));
+                jedis.set(RedisKey.sessionStore(chatMsg.getFromUid()), NodeUtil.node(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))));
                 // 暂时模拟向其他用户发消息，打通链路
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,7 +77,7 @@ public class MsgProcessor {
             try {
                 jedis = RedisUtil.getJedis();
                 jedis.del(RedisKey.sessionStore(user.getUid()));
-                jedis.set(onlineNumKey(PropertiesFile.getHost(),PropertiesFile.port),connectionCount.toString());
+                jedis.set(onlineNumKey(PropertiesMap.getProperties("host"),Integer.parseInt(PropertiesMap.getProperties("port"))),connectionCount.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -123,7 +123,7 @@ public class MsgProcessor {
         Jedis jedis = null;
         try{
             jedis = RedisUtil.getJedis();
-            jedis.set(onlineNumKey(PropertiesFile.getHost(),PropertiesFile.port),connectionCount.toString());
+            jedis.set(onlineNumKey(PropertiesMap.getProperties("host"),Integer.parseInt(PropertiesMap.getProperties("port"))),connectionCount.toString());
         }catch (Exception e){
 
         }finally {
