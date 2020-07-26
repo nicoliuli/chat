@@ -1,0 +1,159 @@
+//package com.wb.wmq.rpc.msg
+
+//option java_package = "com.wb.wmq.rpc.msg";
+option java_package = "com.wb.wmq.client.msg";
+option java_outer_classname = "RpcMsg";
+
+message Msg {
+    // 消息类型:
+    // 1:cluster ping; 2:cluster online; 3:cluster offline; 4: cluster lost
+    // 101:client connected; 102:client disconnected; 103:client connectionLost; 104:RPC2Publish;
+    // >=1000 给业务用
+    required uint64 id = 1;
+    required MsgType type = 2;
+    required int64 time = 3;
+    // optional bool isForward = 4;
+    optional Msg forwardMsg = 5;
+    optional ClusterNode clusterNode = 6;
+    optional Client client = 7;
+    optional PubMsg pubMsg = 8;
+    repeated ClusterNode clusterNodes = 9;
+    optional SubMsg subMsg = 10;
+    optional UnsubMsg unsubMsg = 11;
+    optional R2RMsg r2rMsg = 12;
+    optional RpcClient rpcClient = 13;
+    optional RpcClientSyncMsg rpcSyncMsg = 14;
+    optional Resp resp = 15;
+    optional string fromClusterName = 16;
+    optional string toClusterName = 17;
+}
+
+enum MsgType {
+    /****** RPC通讯的消息类型 start ******/
+    // 集群类消息(0~99)
+    CLUSTER_PING = 1; // cluster ping
+    CLUSTER_CLI_ONLINE = 2; // cluster online
+    CLUSTER_CLI_OFFLINE = 3; // cluster offline
+    CLUSTER_CLI_LOST = 4; // cluster lost
+    CLUSTER_BC = 5; // 广播消息
+    CLUSTER_UC = 6; // 单播消息
+    CLUSTER_BC_SYNC_CLUSTER_NODE = 7; // 广播同步所有的clusternode信息
+    CLUSTER_PING_ACK = 8; // cluster ping ack
+
+    // 集群处理的客户端类消息(100~999)
+    CLUSTER_APP_CONNECTED = 101; // appclient connected
+    CLUSTER_APP_DISCONNECTED = 102; // appclient disconnected
+    CLUSTER_APP_CONNECTIONLOST = 103; // appclient connectionLost
+    CLUSTER_APP_KICKED = 104; // appclient kicked
+
+    // RPC类消息(1000~9999)
+    RPC_RPC2PUB = 1001; // RPC2Publish
+    RPC_PUB2RPC = 1002; // Publish2RPC
+    RPC_SUB = 1003; // 通知业务节点Subscribe topic
+    RPC_UNSUB = 1004; // 通知业务节点Unsubscribe topic
+    RPC_RPC2RPC = 1005; // rpc client 之间的节点通信
+    RPC_CLI_ONLINE = 1006; // rpc client 上线
+    RPC_CLI_OFFLINE = 1007; // rpc client 下线
+    RPC_CLI_PING = 1008; // rpc client ping
+    RPC_CLI_ONLINE_ACK = 1009; // rpc client 上线 的回复
+    RPC_CLI_OFFLINE_ACK = 1010; // rpc client 下线 的回复
+    RPC_CLI_PING_ACK = 1011; // rpc client ping 的回复
+    RPC_CLI_SYNC = 1012; // 同步rpc client信息
+    RPC_RPC2PUB_ACK = 1013; // rpc to pub 的回复
+    RPC_RPC2RPC_ACK = 1014; // rpc to rpc 的回复
+    RPC_APP_CONNECTED = 1015; // appclient connected
+    RPC_APP_DISCONNECTED = 1016; // appclient disconnected
+    RPC_APP_CONNECTIONLOST = 1017; // appclient connectionLost
+    RPC_APP_KICKED = 1018; // appclient kicked
+    RPC_APP_IS_ONLINE = 1019; // appclient 是否在线
+    RPC_APP_ONLINE_COUNT = 1020; // appclient 在线数量
+    RPC_APP_IS_ONLINE_ACK = 1021; // appclient 是否在线回复
+    RPC_APP_ONLINE_COUNT_ACK = 1022; // appclient 在线数量回复
+
+
+    // 业务类消息(2000以上给业务用)
+//    BIZ_RPC2PUB = 1001; // RPC2Publish
+//    BIZ_PUB2RPC = 1002; // Publish2RPC
+//    BIZ_NTF_RC_SUB = 1003; // 通知业务节点Subscribe topic
+//    BIZ_NTF_RC_UNSUB = 1004; // 通知业务节点Unsubscribe topic
+//    BIZ_RC_TO_RC = 1005; // rpc client 之间的节点通信
+//    BIZ_RC_ONLINE = 1006; // rpc client 上线
+//    BIZ_RC_OFFLINE = 1007; // rpc client 下线
+//    BIZ_RC_PING = 1008; // rpc client ping
+//    BIZ_RC_ONLINE_R = 1009; // rpc client 上线 的回复
+//    BIZ_RC_OFFLINE_R = 1010; // rpc client 下线 的回复
+//    BIZ_RC_PING_R = 1011; // rpc client ping 的回复
+
+
+    /****** RPC通讯的消息类型 end ******/
+}
+
+
+//enum MsgOriginType {
+//    CUSTER_NODE = 1; // 消息来自集群节点
+//    RPC_CLIENT_NODE = 2; // 消息来自rpc客户端节点(业务集群节点)
+//    APP_CLIENT =3; // 消息来自手机终端
+//}
+
+// 消息的返回码
+enum MsgCode {
+    OK = 0; // 成功
+    ERROR = 1; // 错误
+}
+
+message Client {
+    required string clientId = 1;
+    required string userName = 2;
+    required string nodeName = 3;
+    required int32 keepAlive = 4;
+}
+
+message ClusterNode {
+    required string ip = 1;
+    required int32 port = 2;
+    required string name = 3;
+    required int32 keepAlive = 4;
+}
+
+message PubMsg {
+    required string clientId = 1;
+    required string userName = 2;
+    required string topic = 3;
+    optional bytes body = 4;
+}
+
+message SubMsg {
+    required string clientId = 1;
+    required string userName = 2;
+    repeated string topics = 3;
+}
+
+message UnsubMsg {
+    required string clientId = 1;
+    required string userName = 2;
+    repeated string topics = 3;
+}
+
+message R2RMsg {
+    required string fromNodeName = 1;
+    required string toNodeName = 2;
+    optional bytes body = 3;
+}
+
+message RpcClient {
+    required string name = 1;
+    required string wmqName = 2;
+    required int32 keepAlive = 3;
+    required int64 lastActiveTime = 4;
+}
+
+message RpcClientSyncMsg {
+    required string nodeName = 1;
+    repeated RpcClient rpcClients = 2;
+}
+
+message Resp {
+    required string operatorName = 1;
+    required MsgCode cd = 2;
+    optional string desc = 3;
+}

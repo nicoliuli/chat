@@ -19,60 +19,45 @@ public final class DataInfo {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
-     * @return Whether the dataType field is set.
+     * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
+     * @return The enum numeric value on the wire for dataType.
      */
-    boolean hasDataType();
+    int getDataTypeValue();
     /**
-     * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
+     * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
      * @return The dataType.
      */
     protobuf.DataInfo.MyMessage.DataType getDataType();
 
     /**
-     * <code>optional .model.domain.Student student = 2;</code>
+     * <code>.model.domain.Student student = 2;</code>
      * @return Whether the student field is set.
      */
     boolean hasStudent();
     /**
-     * <code>optional .model.domain.Student student = 2;</code>
+     * <code>.model.domain.Student student = 2;</code>
      * @return The student.
      */
     protobuf.DataInfo.Student getStudent();
     /**
-     * <code>optional .model.domain.Student student = 2;</code>
+     * <code>.model.domain.Student student = 2;</code>
      */
     protobuf.DataInfo.StudentOrBuilder getStudentOrBuilder();
 
     /**
-     * <code>optional .model.domain.Person person = 3;</code>
+     * <code>.model.domain.Person person = 3;</code>
      * @return Whether the person field is set.
      */
     boolean hasPerson();
     /**
-     * <code>optional .model.domain.Person person = 3;</code>
+     * <code>.model.domain.Person person = 3;</code>
      * @return The person.
      */
     protobuf.DataInfo.Person getPerson();
     /**
-     * <code>optional .model.domain.Person person = 3;</code>
+     * <code>.model.domain.Person person = 3;</code>
      */
     protobuf.DataInfo.PersonOrBuilder getPersonOrBuilder();
-
-    /**
-     * <code>optional .model.domain.User user = 4;</code>
-     * @return Whether the user field is set.
-     */
-    boolean hasUser();
-    /**
-     * <code>optional .model.domain.User user = 4;</code>
-     * @return The user.
-     */
-    protobuf.DataInfo.User getUser();
-    /**
-     * <code>optional .model.domain.User user = 4;</code>
-     */
-    protobuf.DataInfo.UserOrBuilder getUserOrBuilder();
 
     public protobuf.DataInfo.MyMessage.DataBodyCase getDataBodyCase();
   }
@@ -89,7 +74,7 @@ public final class DataInfo {
       super(builder);
     }
     private MyMessage() {
-      dataType_ = 1;
+      dataType_ = 0;
     }
 
     @java.lang.Override
@@ -112,7 +97,6 @@ public final class DataInfo {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -125,14 +109,8 @@ public final class DataInfo {
               break;
             case 8: {
               int rawValue = input.readEnum();
-                @SuppressWarnings("deprecation")
-              protobuf.DataInfo.MyMessage.DataType value = protobuf.DataInfo.MyMessage.DataType.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                dataType_ = rawValue;
-              }
+
+              dataType_ = rawValue;
               break;
             }
             case 18: {
@@ -141,7 +119,7 @@ public final class DataInfo {
                 subBuilder = ((protobuf.DataInfo.Student) dataBody_).toBuilder();
               }
               dataBody_ =
-                  input.readMessage(protobuf.DataInfo.Student.PARSER, extensionRegistry);
+                  input.readMessage(protobuf.DataInfo.Student.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom((protobuf.DataInfo.Student) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
@@ -155,26 +133,12 @@ public final class DataInfo {
                 subBuilder = ((protobuf.DataInfo.Person) dataBody_).toBuilder();
               }
               dataBody_ =
-                  input.readMessage(protobuf.DataInfo.Person.PARSER, extensionRegistry);
+                  input.readMessage(protobuf.DataInfo.Person.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom((protobuf.DataInfo.Person) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
               dataBodyCase_ = 3;
-              break;
-            }
-            case 34: {
-              protobuf.DataInfo.User.Builder subBuilder = null;
-              if (dataBodyCase_ == 4) {
-                subBuilder = ((protobuf.DataInfo.User) dataBody_).toBuilder();
-              }
-              dataBody_ =
-                  input.readMessage(protobuf.DataInfo.User.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((protobuf.DataInfo.User) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
-              }
-              dataBodyCase_ = 4;
               break;
             }
             default: {
@@ -210,39 +174,40 @@ public final class DataInfo {
     }
 
     /**
+     * <pre>
+     * 定义
+     * </pre>
+     *
      * Protobuf enum {@code model.domain.MyMessage.DataType}
      */
     public enum DataType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>StudentType = 1;</code>
+       * <code>StudentType = 0;</code>
        */
-      StudentType(1),
+      StudentType(0),
       /**
-       * <code>PersonType = 2;</code>
+       * <code>PersonType = 1;</code>
        */
-      PersonType(2),
-      /**
-       * <code>UserType = 3;</code>
-       */
-      UserType(3),
+      PersonType(1),
+      UNRECOGNIZED(-1),
       ;
 
       /**
-       * <code>StudentType = 1;</code>
+       * <code>StudentType = 0;</code>
        */
-      public static final int StudentType_VALUE = 1;
+      public static final int StudentType_VALUE = 0;
       /**
-       * <code>PersonType = 2;</code>
+       * <code>PersonType = 1;</code>
        */
-      public static final int PersonType_VALUE = 2;
-      /**
-       * <code>UserType = 3;</code>
-       */
-      public static final int UserType_VALUE = 3;
+      public static final int PersonType_VALUE = 1;
 
 
       public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
         return value;
       }
 
@@ -262,9 +227,8 @@ public final class DataInfo {
        */
       public static DataType forNumber(int value) {
         switch (value) {
-          case 1: return StudentType;
-          case 2: return PersonType;
-          case 3: return UserType;
+          case 0: return StudentType;
+          case 1: return PersonType;
           default: return null;
         }
       }
@@ -302,6 +266,9 @@ public final class DataInfo {
           throw new java.lang.IllegalArgumentException(
             "EnumValueDescriptor is not for this type.");
         }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
         return VALUES[desc.getIndex()];
       }
 
@@ -314,7 +281,6 @@ public final class DataInfo {
       // @@protoc_insertion_point(enum_scope:model.domain.MyMessage.DataType)
     }
 
-    private int bitField0_;
     private int dataBodyCase_ = 0;
     private java.lang.Object dataBody_;
     public enum DataBodyCase
@@ -322,7 +288,6 @@ public final class DataInfo {
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       STUDENT(2),
       PERSON(3),
-      USER(4),
       DATABODY_NOT_SET(0);
       private final int value;
       private DataBodyCase(int value) {
@@ -342,7 +307,6 @@ public final class DataInfo {
         switch (value) {
           case 2: return STUDENT;
           case 3: return PERSON;
-          case 4: return USER;
           case 0: return DATABODY_NOT_SET;
           default: return null;
         }
@@ -361,32 +325,32 @@ public final class DataInfo {
     public static final int DATA_TYPE_FIELD_NUMBER = 1;
     private int dataType_;
     /**
-     * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
-     * @return Whether the dataType field is set.
+     * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
+     * @return The enum numeric value on the wire for dataType.
      */
-    public boolean hasDataType() {
-      return ((bitField0_ & 0x00000001) != 0);
+    public int getDataTypeValue() {
+      return dataType_;
     }
     /**
-     * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
+     * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
      * @return The dataType.
      */
     public protobuf.DataInfo.MyMessage.DataType getDataType() {
       @SuppressWarnings("deprecation")
       protobuf.DataInfo.MyMessage.DataType result = protobuf.DataInfo.MyMessage.DataType.valueOf(dataType_);
-      return result == null ? protobuf.DataInfo.MyMessage.DataType.StudentType : result;
+      return result == null ? protobuf.DataInfo.MyMessage.DataType.UNRECOGNIZED : result;
     }
 
     public static final int STUDENT_FIELD_NUMBER = 2;
     /**
-     * <code>optional .model.domain.Student student = 2;</code>
+     * <code>.model.domain.Student student = 2;</code>
      * @return Whether the student field is set.
      */
     public boolean hasStudent() {
       return dataBodyCase_ == 2;
     }
     /**
-     * <code>optional .model.domain.Student student = 2;</code>
+     * <code>.model.domain.Student student = 2;</code>
      * @return The student.
      */
     public protobuf.DataInfo.Student getStudent() {
@@ -396,7 +360,7 @@ public final class DataInfo {
       return protobuf.DataInfo.Student.getDefaultInstance();
     }
     /**
-     * <code>optional .model.domain.Student student = 2;</code>
+     * <code>.model.domain.Student student = 2;</code>
      */
     public protobuf.DataInfo.StudentOrBuilder getStudentOrBuilder() {
       if (dataBodyCase_ == 2) {
@@ -407,14 +371,14 @@ public final class DataInfo {
 
     public static final int PERSON_FIELD_NUMBER = 3;
     /**
-     * <code>optional .model.domain.Person person = 3;</code>
+     * <code>.model.domain.Person person = 3;</code>
      * @return Whether the person field is set.
      */
     public boolean hasPerson() {
       return dataBodyCase_ == 3;
     }
     /**
-     * <code>optional .model.domain.Person person = 3;</code>
+     * <code>.model.domain.Person person = 3;</code>
      * @return The person.
      */
     public protobuf.DataInfo.Person getPerson() {
@@ -424,41 +388,13 @@ public final class DataInfo {
       return protobuf.DataInfo.Person.getDefaultInstance();
     }
     /**
-     * <code>optional .model.domain.Person person = 3;</code>
+     * <code>.model.domain.Person person = 3;</code>
      */
     public protobuf.DataInfo.PersonOrBuilder getPersonOrBuilder() {
       if (dataBodyCase_ == 3) {
          return (protobuf.DataInfo.Person) dataBody_;
       }
       return protobuf.DataInfo.Person.getDefaultInstance();
-    }
-
-    public static final int USER_FIELD_NUMBER = 4;
-    /**
-     * <code>optional .model.domain.User user = 4;</code>
-     * @return Whether the user field is set.
-     */
-    public boolean hasUser() {
-      return dataBodyCase_ == 4;
-    }
-    /**
-     * <code>optional .model.domain.User user = 4;</code>
-     * @return The user.
-     */
-    public protobuf.DataInfo.User getUser() {
-      if (dataBodyCase_ == 4) {
-         return (protobuf.DataInfo.User) dataBody_;
-      }
-      return protobuf.DataInfo.User.getDefaultInstance();
-    }
-    /**
-     * <code>optional .model.domain.User user = 4;</code>
-     */
-    public protobuf.DataInfo.UserOrBuilder getUserOrBuilder() {
-      if (dataBodyCase_ == 4) {
-         return (protobuf.DataInfo.User) dataBody_;
-      }
-      return protobuf.DataInfo.User.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -468,28 +404,6 @@ public final class DataInfo {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasDataType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasStudent()) {
-        if (!getStudent().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasPerson()) {
-        if (!getPerson().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasUser()) {
-        if (!getUser().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -497,7 +411,7 @@ public final class DataInfo {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (dataType_ != protobuf.DataInfo.MyMessage.DataType.StudentType.getNumber()) {
         output.writeEnum(1, dataType_);
       }
       if (dataBodyCase_ == 2) {
@@ -505,9 +419,6 @@ public final class DataInfo {
       }
       if (dataBodyCase_ == 3) {
         output.writeMessage(3, (protobuf.DataInfo.Person) dataBody_);
-      }
-      if (dataBodyCase_ == 4) {
-        output.writeMessage(4, (protobuf.DataInfo.User) dataBody_);
       }
       unknownFields.writeTo(output);
     }
@@ -518,7 +429,7 @@ public final class DataInfo {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (dataType_ != protobuf.DataInfo.MyMessage.DataType.StudentType.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, dataType_);
       }
@@ -529,10 +440,6 @@ public final class DataInfo {
       if (dataBodyCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, (protobuf.DataInfo.Person) dataBody_);
-      }
-      if (dataBodyCase_ == 4) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (protobuf.DataInfo.User) dataBody_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -549,10 +456,7 @@ public final class DataInfo {
       }
       protobuf.DataInfo.MyMessage other = (protobuf.DataInfo.MyMessage) obj;
 
-      if (hasDataType() != other.hasDataType()) return false;
-      if (hasDataType()) {
-        if (dataType_ != other.dataType_) return false;
-      }
+      if (dataType_ != other.dataType_) return false;
       if (!getDataBodyCase().equals(other.getDataBodyCase())) return false;
       switch (dataBodyCase_) {
         case 2:
@@ -562,10 +466,6 @@ public final class DataInfo {
         case 3:
           if (!getPerson()
               .equals(other.getPerson())) return false;
-          break;
-        case 4:
-          if (!getUser()
-              .equals(other.getUser())) return false;
           break;
         case 0:
         default:
@@ -581,10 +481,8 @@ public final class DataInfo {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasDataType()) {
-        hash = (37 * hash) + DATA_TYPE_FIELD_NUMBER;
-        hash = (53 * hash) + dataType_;
-      }
+      hash = (37 * hash) + DATA_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + dataType_;
       switch (dataBodyCase_) {
         case 2:
           hash = (37 * hash) + STUDENT_FIELD_NUMBER;
@@ -593,10 +491,6 @@ public final class DataInfo {
         case 3:
           hash = (37 * hash) + PERSON_FIELD_NUMBER;
           hash = (53 * hash) + getPerson().hashCode();
-          break;
-        case 4:
-          hash = (37 * hash) + USER_FIELD_NUMBER;
-          hash = (53 * hash) + getUser().hashCode();
           break;
         case 0:
         default:
@@ -734,8 +628,8 @@ public final class DataInfo {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        dataType_ = 1;
-        bitField0_ = (bitField0_ & ~0x00000001);
+        dataType_ = 0;
+
         dataBodyCase_ = 0;
         dataBody_ = null;
         return this;
@@ -764,11 +658,6 @@ public final class DataInfo {
       @java.lang.Override
       public protobuf.DataInfo.MyMessage buildPartial() {
         protobuf.DataInfo.MyMessage result = new protobuf.DataInfo.MyMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.dataType_ = dataType_;
         if (dataBodyCase_ == 2) {
           if (studentBuilder_ == null) {
@@ -784,14 +673,6 @@ public final class DataInfo {
             result.dataBody_ = personBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 4) {
-          if (userBuilder_ == null) {
-            result.dataBody_ = dataBody_;
-          } else {
-            result.dataBody_ = userBuilder_.build();
-          }
-        }
-        result.bitField0_ = to_bitField0_;
         result.dataBodyCase_ = dataBodyCase_;
         onBuilt();
         return result;
@@ -841,8 +722,8 @@ public final class DataInfo {
 
       public Builder mergeFrom(protobuf.DataInfo.MyMessage other) {
         if (other == protobuf.DataInfo.MyMessage.getDefaultInstance()) return this;
-        if (other.hasDataType()) {
-          setDataType(other.getDataType());
+        if (other.dataType_ != 0) {
+          setDataTypeValue(other.getDataTypeValue());
         }
         switch (other.getDataBodyCase()) {
           case STUDENT: {
@@ -851,10 +732,6 @@ public final class DataInfo {
           }
           case PERSON: {
             mergePerson(other.getPerson());
-            break;
-          }
-          case USER: {
-            mergeUser(other.getUser());
             break;
           }
           case DATABODY_NOT_SET: {
@@ -868,24 +745,6 @@ public final class DataInfo {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasDataType()) {
-          return false;
-        }
-        if (hasStudent()) {
-          if (!getStudent().isInitialized()) {
-            return false;
-          }
-        }
-        if (hasPerson()) {
-          if (!getPerson().isInitialized()) {
-            return false;
-          }
-        }
-        if (hasUser()) {
-          if (!getUser().isInitialized()) {
-            return false;
-          }
-        }
         return true;
       }
 
@@ -922,27 +781,36 @@ public final class DataInfo {
         return this;
       }
 
-      private int bitField0_;
 
-      private int dataType_ = 1;
+      private int dataType_ = 0;
       /**
-       * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
-       * @return Whether the dataType field is set.
+       * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
+       * @return The enum numeric value on the wire for dataType.
        */
-      public boolean hasDataType() {
-        return ((bitField0_ & 0x00000001) != 0);
+      public int getDataTypeValue() {
+        return dataType_;
       }
       /**
-       * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
+       * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
+       * @param value The enum numeric value on the wire for dataType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataTypeValue(int value) {
+        dataType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
        * @return The dataType.
        */
       public protobuf.DataInfo.MyMessage.DataType getDataType() {
         @SuppressWarnings("deprecation")
         protobuf.DataInfo.MyMessage.DataType result = protobuf.DataInfo.MyMessage.DataType.valueOf(dataType_);
-        return result == null ? protobuf.DataInfo.MyMessage.DataType.StudentType : result;
+        return result == null ? protobuf.DataInfo.MyMessage.DataType.UNRECOGNIZED : result;
       }
       /**
-       * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
+       * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
        * @param value The dataType to set.
        * @return This builder for chaining.
        */
@@ -950,18 +818,18 @@ public final class DataInfo {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000001;
+        
         dataType_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>required .model.domain.MyMessage.DataType data_type = 1;</code>
+       * <code>.model.domain.MyMessage.DataType data_type = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearDataType() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        dataType_ = 1;
+        
+        dataType_ = 0;
         onChanged();
         return this;
       }
@@ -969,14 +837,14 @@ public final class DataInfo {
       private com.google.protobuf.SingleFieldBuilderV3<
           protobuf.DataInfo.Student, protobuf.DataInfo.Student.Builder, protobuf.DataInfo.StudentOrBuilder> studentBuilder_;
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        * @return Whether the student field is set.
        */
       public boolean hasStudent() {
         return dataBodyCase_ == 2;
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        * @return The student.
        */
       public protobuf.DataInfo.Student getStudent() {
@@ -993,7 +861,7 @@ public final class DataInfo {
         }
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        */
       public Builder setStudent(protobuf.DataInfo.Student value) {
         if (studentBuilder_ == null) {
@@ -1009,7 +877,7 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        */
       public Builder setStudent(
           protobuf.DataInfo.Student.Builder builderForValue) {
@@ -1023,7 +891,7 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        */
       public Builder mergeStudent(protobuf.DataInfo.Student value) {
         if (studentBuilder_ == null) {
@@ -1045,7 +913,7 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        */
       public Builder clearStudent() {
         if (studentBuilder_ == null) {
@@ -1064,13 +932,13 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        */
       public protobuf.DataInfo.Student.Builder getStudentBuilder() {
         return getStudentFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        */
       public protobuf.DataInfo.StudentOrBuilder getStudentOrBuilder() {
         if ((dataBodyCase_ == 2) && (studentBuilder_ != null)) {
@@ -1083,7 +951,7 @@ public final class DataInfo {
         }
       }
       /**
-       * <code>optional .model.domain.Student student = 2;</code>
+       * <code>.model.domain.Student student = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           protobuf.DataInfo.Student, protobuf.DataInfo.Student.Builder, protobuf.DataInfo.StudentOrBuilder> 
@@ -1107,14 +975,14 @@ public final class DataInfo {
       private com.google.protobuf.SingleFieldBuilderV3<
           protobuf.DataInfo.Person, protobuf.DataInfo.Person.Builder, protobuf.DataInfo.PersonOrBuilder> personBuilder_;
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        * @return Whether the person field is set.
        */
       public boolean hasPerson() {
         return dataBodyCase_ == 3;
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        * @return The person.
        */
       public protobuf.DataInfo.Person getPerson() {
@@ -1131,7 +999,7 @@ public final class DataInfo {
         }
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        */
       public Builder setPerson(protobuf.DataInfo.Person value) {
         if (personBuilder_ == null) {
@@ -1147,7 +1015,7 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        */
       public Builder setPerson(
           protobuf.DataInfo.Person.Builder builderForValue) {
@@ -1161,7 +1029,7 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        */
       public Builder mergePerson(protobuf.DataInfo.Person value) {
         if (personBuilder_ == null) {
@@ -1183,7 +1051,7 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        */
       public Builder clearPerson() {
         if (personBuilder_ == null) {
@@ -1202,13 +1070,13 @@ public final class DataInfo {
         return this;
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        */
       public protobuf.DataInfo.Person.Builder getPersonBuilder() {
         return getPersonFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        */
       public protobuf.DataInfo.PersonOrBuilder getPersonOrBuilder() {
         if ((dataBodyCase_ == 3) && (personBuilder_ != null)) {
@@ -1221,7 +1089,7 @@ public final class DataInfo {
         }
       }
       /**
-       * <code>optional .model.domain.Person person = 3;</code>
+       * <code>.model.domain.Person person = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           protobuf.DataInfo.Person, protobuf.DataInfo.Person.Builder, protobuf.DataInfo.PersonOrBuilder> 
@@ -1240,144 +1108,6 @@ public final class DataInfo {
         dataBodyCase_ = 3;
         onChanged();;
         return personBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          protobuf.DataInfo.User, protobuf.DataInfo.User.Builder, protobuf.DataInfo.UserOrBuilder> userBuilder_;
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       * @return Whether the user field is set.
-       */
-      public boolean hasUser() {
-        return dataBodyCase_ == 4;
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       * @return The user.
-       */
-      public protobuf.DataInfo.User getUser() {
-        if (userBuilder_ == null) {
-          if (dataBodyCase_ == 4) {
-            return (protobuf.DataInfo.User) dataBody_;
-          }
-          return protobuf.DataInfo.User.getDefaultInstance();
-        } else {
-          if (dataBodyCase_ == 4) {
-            return userBuilder_.getMessage();
-          }
-          return protobuf.DataInfo.User.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       */
-      public Builder setUser(protobuf.DataInfo.User value) {
-        if (userBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          dataBody_ = value;
-          onChanged();
-        } else {
-          userBuilder_.setMessage(value);
-        }
-        dataBodyCase_ = 4;
-        return this;
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       */
-      public Builder setUser(
-          protobuf.DataInfo.User.Builder builderForValue) {
-        if (userBuilder_ == null) {
-          dataBody_ = builderForValue.build();
-          onChanged();
-        } else {
-          userBuilder_.setMessage(builderForValue.build());
-        }
-        dataBodyCase_ = 4;
-        return this;
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       */
-      public Builder mergeUser(protobuf.DataInfo.User value) {
-        if (userBuilder_ == null) {
-          if (dataBodyCase_ == 4 &&
-              dataBody_ != protobuf.DataInfo.User.getDefaultInstance()) {
-            dataBody_ = protobuf.DataInfo.User.newBuilder((protobuf.DataInfo.User) dataBody_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            dataBody_ = value;
-          }
-          onChanged();
-        } else {
-          if (dataBodyCase_ == 4) {
-            userBuilder_.mergeFrom(value);
-          }
-          userBuilder_.setMessage(value);
-        }
-        dataBodyCase_ = 4;
-        return this;
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       */
-      public Builder clearUser() {
-        if (userBuilder_ == null) {
-          if (dataBodyCase_ == 4) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
-            onChanged();
-          }
-        } else {
-          if (dataBodyCase_ == 4) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
-          }
-          userBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       */
-      public protobuf.DataInfo.User.Builder getUserBuilder() {
-        return getUserFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       */
-      public protobuf.DataInfo.UserOrBuilder getUserOrBuilder() {
-        if ((dataBodyCase_ == 4) && (userBuilder_ != null)) {
-          return userBuilder_.getMessageOrBuilder();
-        } else {
-          if (dataBodyCase_ == 4) {
-            return (protobuf.DataInfo.User) dataBody_;
-          }
-          return protobuf.DataInfo.User.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>optional .model.domain.User user = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          protobuf.DataInfo.User, protobuf.DataInfo.User.Builder, protobuf.DataInfo.UserOrBuilder> 
-          getUserFieldBuilder() {
-        if (userBuilder_ == null) {
-          if (!(dataBodyCase_ == 4)) {
-            dataBody_ = protobuf.DataInfo.User.getDefaultInstance();
-          }
-          userBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              protobuf.DataInfo.User, protobuf.DataInfo.User.Builder, protobuf.DataInfo.UserOrBuilder>(
-                  (protobuf.DataInfo.User) dataBody_,
-                  getParentForChildren(),
-                  isClean());
-          dataBody_ = null;
-        }
-        dataBodyCase_ = 4;
-        onChanged();;
-        return userBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -1405,7 +1135,7 @@ public final class DataInfo {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<MyMessage>
+    private static final com.google.protobuf.Parser<MyMessage>
         PARSER = new com.google.protobuf.AbstractParser<MyMessage>() {
       @java.lang.Override
       public MyMessage parsePartialFrom(
@@ -1437,49 +1167,161 @@ public final class DataInfo {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    boolean hasName();
-    /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
-     * <code>optional int32 age = 2;</code>
-     * @return Whether the age field is set.
-     */
-    boolean hasAge();
-    /**
-     * <code>optional int32 age = 2;</code>
+     * <code>int32 age = 2;</code>
      * @return The age.
      */
     int getAge();
 
     /**
-     * <code>optional string address = 3;</code>
-     * @return Whether the address field is set.
+     * <code>string head_addr = 3;</code>
+     * @return The headAddr.
      */
-    boolean hasAddress();
+    java.lang.String getHeadAddr();
     /**
-     * <code>optional string address = 3;</code>
-     * @return The address.
-     */
-    java.lang.String getAddress();
-    /**
-     * <code>optional string address = 3;</code>
-     * @return The bytes for address.
+     * <code>string head_addr = 3;</code>
+     * @return The bytes for headAddr.
      */
     com.google.protobuf.ByteString
-        getAddressBytes();
+        getHeadAddrBytes();
+
+    /**
+     * <pre>
+     * 定义List&lt;Integer&gt;
+     * </pre>
+     *
+     * <code>repeated int32 int_arr = 4;</code>
+     * @return A list containing the intArr.
+     */
+    java.util.List<java.lang.Integer> getIntArrList();
+    /**
+     * <pre>
+     * 定义List&lt;Integer&gt;
+     * </pre>
+     *
+     * <code>repeated int32 int_arr = 4;</code>
+     * @return The count of intArr.
+     */
+    int getIntArrCount();
+    /**
+     * <pre>
+     * 定义List&lt;Integer&gt;
+     * </pre>
+     *
+     * <code>repeated int32 int_arr = 4;</code>
+     * @param index The index of the element to return.
+     * @return The intArr at the given index.
+     */
+    int getIntArr(int index);
+
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    java.util.List<protobuf.DataInfo.Person> 
+        getPersonArrList();
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    protobuf.DataInfo.Person getPersonArr(int index);
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    int getPersonArrCount();
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    java.util.List<? extends protobuf.DataInfo.PersonOrBuilder> 
+        getPersonArrOrBuilderList();
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    protobuf.DataInfo.PersonOrBuilder getPersonArrOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+    int getPersonMapCount();
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+    boolean containsPersonMap(
+        java.lang.String key);
+    /**
+     * Use {@link #getPersonMapMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, protobuf.DataInfo.Person>
+    getPersonMap();
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+    java.util.Map<java.lang.String, protobuf.DataInfo.Person>
+    getPersonMapMap();
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+
+    protobuf.DataInfo.Person getPersonMapOrDefault(
+        java.lang.String key,
+        protobuf.DataInfo.Person defaultValue);
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+
+    protobuf.DataInfo.Person getPersonMapOrThrow(
+        java.lang.String key);
   }
   /**
    * Protobuf type {@code model.domain.Student}
@@ -1495,7 +1337,9 @@ public final class DataInfo {
     }
     private Student() {
       name_ = "";
-      address_ = "";
+      headAddr_ = "";
+      intArr_ = emptyIntList();
+      personArr_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -1530,20 +1374,63 @@ public final class DataInfo {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              name_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
               break;
             }
             case 16: {
-              bitField0_ |= 0x00000002;
+
               age_ = input.readInt32();
               break;
             }
             case 26: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000004;
-              address_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              headAddr_ = s;
+              break;
+            }
+            case 32: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                intArr_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              intArr_.addInt(input.readInt32());
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                intArr_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                intArr_.addInt(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                personArr_ = new java.util.ArrayList<protobuf.DataInfo.Person>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              personArr_.add(
+                  input.readMessage(protobuf.DataInfo.Person.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                personMap_ = com.google.protobuf.MapField.newMapField(
+                    PersonMapDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000004;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, protobuf.DataInfo.Person>
+              personMap__ = input.readMessage(
+                  PersonMapDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              personMap_.getMutableMap().put(
+                  personMap__.getKey(), personMap__.getValue());
               break;
             }
             default: {
@@ -1561,6 +1448,12 @@ public final class DataInfo {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          intArr_.makeImmutable(); // C
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          personArr_ = java.util.Collections.unmodifiableList(personArr_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -1570,6 +1463,18 @@ public final class DataInfo {
       return protobuf.DataInfo.internal_static_model_domain_Student_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 6:
+          return internalGetPersonMap();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -1578,18 +1483,10 @@ public final class DataInfo {
               protobuf.DataInfo.Student.class, protobuf.DataInfo.Student.Builder.class);
     }
 
-    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     private volatile java.lang.Object name_;
     /**
-     * <code>required string name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The name.
      */
     public java.lang.String getName() {
@@ -1600,14 +1497,12 @@ public final class DataInfo {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
+        name_ = s;
         return s;
       }
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The bytes for name.
      */
     public com.google.protobuf.ByteString
@@ -1627,63 +1522,233 @@ public final class DataInfo {
     public static final int AGE_FIELD_NUMBER = 2;
     private int age_;
     /**
-     * <code>optional int32 age = 2;</code>
-     * @return Whether the age field is set.
-     */
-    public boolean hasAge() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <code>optional int32 age = 2;</code>
+     * <code>int32 age = 2;</code>
      * @return The age.
      */
     public int getAge() {
       return age_;
     }
 
-    public static final int ADDRESS_FIELD_NUMBER = 3;
-    private volatile java.lang.Object address_;
+    public static final int HEAD_ADDR_FIELD_NUMBER = 3;
+    private volatile java.lang.Object headAddr_;
     /**
-     * <code>optional string address = 3;</code>
-     * @return Whether the address field is set.
+     * <code>string head_addr = 3;</code>
+     * @return The headAddr.
      */
-    public boolean hasAddress() {
-      return ((bitField0_ & 0x00000004) != 0);
-    }
-    /**
-     * <code>optional string address = 3;</code>
-     * @return The address.
-     */
-    public java.lang.String getAddress() {
-      java.lang.Object ref = address_;
+    public java.lang.String getHeadAddr() {
+      java.lang.Object ref = headAddr_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          address_ = s;
-        }
+        headAddr_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string address = 3;</code>
-     * @return The bytes for address.
+     * <code>string head_addr = 3;</code>
+     * @return The bytes for headAddr.
      */
     public com.google.protobuf.ByteString
-        getAddressBytes() {
-      java.lang.Object ref = address_;
+        getHeadAddrBytes() {
+      java.lang.Object ref = headAddr_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        address_ = b;
+        headAddr_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int INT_ARR_FIELD_NUMBER = 4;
+    private com.google.protobuf.Internal.IntList intArr_;
+    /**
+     * <pre>
+     * 定义List&lt;Integer&gt;
+     * </pre>
+     *
+     * <code>repeated int32 int_arr = 4;</code>
+     * @return A list containing the intArr.
+     */
+    public java.util.List<java.lang.Integer>
+        getIntArrList() {
+      return intArr_;
+    }
+    /**
+     * <pre>
+     * 定义List&lt;Integer&gt;
+     * </pre>
+     *
+     * <code>repeated int32 int_arr = 4;</code>
+     * @return The count of intArr.
+     */
+    public int getIntArrCount() {
+      return intArr_.size();
+    }
+    /**
+     * <pre>
+     * 定义List&lt;Integer&gt;
+     * </pre>
+     *
+     * <code>repeated int32 int_arr = 4;</code>
+     * @param index The index of the element to return.
+     * @return The intArr at the given index.
+     */
+    public int getIntArr(int index) {
+      return intArr_.getInt(index);
+    }
+    private int intArrMemoizedSerializedSize = -1;
+
+    public static final int PERSON_ARR_FIELD_NUMBER = 5;
+    private java.util.List<protobuf.DataInfo.Person> personArr_;
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    public java.util.List<protobuf.DataInfo.Person> getPersonArrList() {
+      return personArr_;
+    }
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    public java.util.List<? extends protobuf.DataInfo.PersonOrBuilder> 
+        getPersonArrOrBuilderList() {
+      return personArr_;
+    }
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    public int getPersonArrCount() {
+      return personArr_.size();
+    }
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    public protobuf.DataInfo.Person getPersonArr(int index) {
+      return personArr_.get(index);
+    }
+    /**
+     * <pre>
+     * 定义List&lt;Person&gt;
+     * </pre>
+     *
+     * <code>repeated .model.domain.Person person_arr = 5;</code>
+     */
+    public protobuf.DataInfo.PersonOrBuilder getPersonArrOrBuilder(
+        int index) {
+      return personArr_.get(index);
+    }
+
+    public static final int PERSON_MAP_FIELD_NUMBER = 6;
+    private static final class PersonMapDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, protobuf.DataInfo.Person> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, protobuf.DataInfo.Person>newDefaultInstance(
+                  protobuf.DataInfo.internal_static_model_domain_Student_PersonMapEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  protobuf.DataInfo.Person.getDefaultInstance());
+    }
+    private com.google.protobuf.MapField<
+        java.lang.String, protobuf.DataInfo.Person> personMap_;
+    private com.google.protobuf.MapField<java.lang.String, protobuf.DataInfo.Person>
+    internalGetPersonMap() {
+      if (personMap_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            PersonMapDefaultEntryHolder.defaultEntry);
+      }
+      return personMap_;
+    }
+
+    public int getPersonMapCount() {
+      return internalGetPersonMap().getMap().size();
+    }
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+
+    public boolean containsPersonMap(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetPersonMap().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getPersonMapMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, protobuf.DataInfo.Person> getPersonMap() {
+      return getPersonMapMap();
+    }
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+
+    public java.util.Map<java.lang.String, protobuf.DataInfo.Person> getPersonMapMap() {
+      return internalGetPersonMap().getMap();
+    }
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+
+    public protobuf.DataInfo.Person getPersonMapOrDefault(
+        java.lang.String key,
+        protobuf.DataInfo.Person defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, protobuf.DataInfo.Person> map =
+          internalGetPersonMap().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * 定义Map&lt;String,Person&gt;
+     * </pre>
+     *
+     * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+     */
+
+    public protobuf.DataInfo.Person getPersonMapOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, protobuf.DataInfo.Person> map =
+          internalGetPersonMap().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1693,10 +1758,6 @@ public final class DataInfo {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1704,15 +1765,32 @@ public final class DataInfo {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
+      getSerializedSize();
+      if (!getNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (age_ != 0) {
         output.writeInt32(2, age_);
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, address_);
+      if (!getHeadAddrBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, headAddr_);
       }
+      if (getIntArrList().size() > 0) {
+        output.writeUInt32NoTag(34);
+        output.writeUInt32NoTag(intArrMemoizedSerializedSize);
+      }
+      for (int i = 0; i < intArr_.size(); i++) {
+        output.writeInt32NoTag(intArr_.getInt(i));
+      }
+      for (int i = 0; i < personArr_.size(); i++) {
+        output.writeMessage(5, personArr_.get(i));
+      }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetPersonMap(),
+          PersonMapDefaultEntryHolder.defaultEntry,
+          6);
       unknownFields.writeTo(output);
     }
 
@@ -1722,15 +1800,43 @@ public final class DataInfo {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (!getNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (age_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, age_);
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, address_);
+      if (!getHeadAddrBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, headAddr_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < intArr_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(intArr_.getInt(i));
+        }
+        size += dataSize;
+        if (!getIntArrList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        intArrMemoizedSerializedSize = dataSize;
+      }
+      for (int i = 0; i < personArr_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, personArr_.get(i));
+      }
+      for (java.util.Map.Entry<java.lang.String, protobuf.DataInfo.Person> entry
+           : internalGetPersonMap().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, protobuf.DataInfo.Person>
+        personMap__ = PersonMapDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(6, personMap__);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1747,21 +1853,18 @@ public final class DataInfo {
       }
       protobuf.DataInfo.Student other = (protobuf.DataInfo.Student) obj;
 
-      if (hasName() != other.hasName()) return false;
-      if (hasName()) {
-        if (!getName()
-            .equals(other.getName())) return false;
-      }
-      if (hasAge() != other.hasAge()) return false;
-      if (hasAge()) {
-        if (getAge()
-            != other.getAge()) return false;
-      }
-      if (hasAddress() != other.hasAddress()) return false;
-      if (hasAddress()) {
-        if (!getAddress()
-            .equals(other.getAddress())) return false;
-      }
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getAge()
+          != other.getAge()) return false;
+      if (!getHeadAddr()
+          .equals(other.getHeadAddr())) return false;
+      if (!getIntArrList()
+          .equals(other.getIntArrList())) return false;
+      if (!getPersonArrList()
+          .equals(other.getPersonArrList())) return false;
+      if (!internalGetPersonMap().equals(
+          other.internalGetPersonMap())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1773,17 +1876,23 @@ public final class DataInfo {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasName()) {
-        hash = (37 * hash) + NAME_FIELD_NUMBER;
-        hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + AGE_FIELD_NUMBER;
+      hash = (53 * hash) + getAge();
+      hash = (37 * hash) + HEAD_ADDR_FIELD_NUMBER;
+      hash = (53 * hash) + getHeadAddr().hashCode();
+      if (getIntArrCount() > 0) {
+        hash = (37 * hash) + INT_ARR_FIELD_NUMBER;
+        hash = (53 * hash) + getIntArrList().hashCode();
       }
-      if (hasAge()) {
-        hash = (37 * hash) + AGE_FIELD_NUMBER;
-        hash = (53 * hash) + getAge();
+      if (getPersonArrCount() > 0) {
+        hash = (37 * hash) + PERSON_ARR_FIELD_NUMBER;
+        hash = (53 * hash) + getPersonArrList().hashCode();
       }
-      if (hasAddress()) {
-        hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
-        hash = (53 * hash) + getAddress().hashCode();
+      if (!internalGetPersonMap().getMap().isEmpty()) {
+        hash = (37 * hash) + PERSON_MAP_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetPersonMap().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1892,6 +2001,28 @@ public final class DataInfo {
         return protobuf.DataInfo.internal_static_model_domain_Student_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 6:
+            return internalGetPersonMap();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 6:
+            return internalGetMutablePersonMap();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -1913,17 +2044,27 @@ public final class DataInfo {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getPersonArrFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         age_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        address_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
+
+        headAddr_ = "";
+
+        intArr_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (personArrBuilder_ == null) {
+          personArr_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          personArrBuilder_.clear();
+        }
+        internalGetMutablePersonMap().clear();
         return this;
       }
 
@@ -1951,20 +2092,25 @@ public final class DataInfo {
       public protobuf.DataInfo.Student buildPartial() {
         protobuf.DataInfo.Student result = new protobuf.DataInfo.Student(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.age_ = age_;
-          to_bitField0_ |= 0x00000002;
+        result.age_ = age_;
+        result.headAddr_ = headAddr_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          intArr_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          to_bitField0_ |= 0x00000004;
+        result.intArr_ = intArr_;
+        if (personArrBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            personArr_ = java.util.Collections.unmodifiableList(personArr_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.personArr_ = personArr_;
+        } else {
+          result.personArr_ = personArrBuilder_.build();
         }
-        result.address_ = address_;
-        result.bitField0_ = to_bitField0_;
+        result.personMap_ = internalGetPersonMap();
+        result.personMap_.makeImmutable();
         onBuilt();
         return result;
       }
@@ -2013,19 +2159,55 @@ public final class DataInfo {
 
       public Builder mergeFrom(protobuf.DataInfo.Student other) {
         if (other == protobuf.DataInfo.Student.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
         }
-        if (other.hasAge()) {
+        if (other.getAge() != 0) {
           setAge(other.getAge());
         }
-        if (other.hasAddress()) {
-          bitField0_ |= 0x00000004;
-          address_ = other.address_;
+        if (!other.getHeadAddr().isEmpty()) {
+          headAddr_ = other.headAddr_;
           onChanged();
         }
+        if (!other.intArr_.isEmpty()) {
+          if (intArr_.isEmpty()) {
+            intArr_ = other.intArr_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureIntArrIsMutable();
+            intArr_.addAll(other.intArr_);
+          }
+          onChanged();
+        }
+        if (personArrBuilder_ == null) {
+          if (!other.personArr_.isEmpty()) {
+            if (personArr_.isEmpty()) {
+              personArr_ = other.personArr_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensurePersonArrIsMutable();
+              personArr_.addAll(other.personArr_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.personArr_.isEmpty()) {
+            if (personArrBuilder_.isEmpty()) {
+              personArrBuilder_.dispose();
+              personArrBuilder_ = null;
+              personArr_ = other.personArr_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              personArrBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPersonArrFieldBuilder() : null;
+            } else {
+              personArrBuilder_.addAllMessages(other.personArr_);
+            }
+          }
+        }
+        internalGetMutablePersonMap().mergeFrom(
+            other.internalGetPersonMap());
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2033,9 +2215,6 @@ public final class DataInfo {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasName()) {
-          return false;
-        }
         return true;
       }
 
@@ -2061,14 +2240,7 @@ public final class DataInfo {
 
       private java.lang.Object name_ = "";
       /**
-       * <code>required string name = 1;</code>
-       * @return Whether the name field is set.
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @return The name.
        */
       public java.lang.String getName() {
@@ -2077,16 +2249,14 @@ public final class DataInfo {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
+          name_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
@@ -2103,7 +2273,7 @@ public final class DataInfo {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @param value The name to set.
        * @return This builder for chaining.
        */
@@ -2112,23 +2282,23 @@ public final class DataInfo {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
        */
@@ -2137,7 +2307,8 @@ public final class DataInfo {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         name_ = value;
         onChanged();
         return this;
@@ -2145,122 +2316,677 @@ public final class DataInfo {
 
       private int age_ ;
       /**
-       * <code>optional int32 age = 2;</code>
-       * @return Whether the age field is set.
-       */
-      public boolean hasAge() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>optional int32 age = 2;</code>
+       * <code>int32 age = 2;</code>
        * @return The age.
        */
       public int getAge() {
         return age_;
       }
       /**
-       * <code>optional int32 age = 2;</code>
+       * <code>int32 age = 2;</code>
        * @param value The age to set.
        * @return This builder for chaining.
        */
       public Builder setAge(int value) {
-        bitField0_ |= 0x00000002;
+        
         age_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 age = 2;</code>
+       * <code>int32 age = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearAge() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         age_ = 0;
         onChanged();
         return this;
       }
 
-      private java.lang.Object address_ = "";
+      private java.lang.Object headAddr_ = "";
       /**
-       * <code>optional string address = 3;</code>
-       * @return Whether the address field is set.
+       * <code>string head_addr = 3;</code>
+       * @return The headAddr.
        */
-      public boolean hasAddress() {
-        return ((bitField0_ & 0x00000004) != 0);
-      }
-      /**
-       * <code>optional string address = 3;</code>
-       * @return The address.
-       */
-      public java.lang.String getAddress() {
-        java.lang.Object ref = address_;
+      public java.lang.String getHeadAddr() {
+        java.lang.Object ref = headAddr_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            address_ = s;
-          }
+          headAddr_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string address = 3;</code>
-       * @return The bytes for address.
+       * <code>string head_addr = 3;</code>
+       * @return The bytes for headAddr.
        */
       public com.google.protobuf.ByteString
-          getAddressBytes() {
-        java.lang.Object ref = address_;
+          getHeadAddrBytes() {
+        java.lang.Object ref = headAddr_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          address_ = b;
+          headAddr_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string address = 3;</code>
-       * @param value The address to set.
+       * <code>string head_addr = 3;</code>
+       * @param value The headAddr to set.
        * @return This builder for chaining.
        */
-      public Builder setAddress(
+      public Builder setHeadAddr(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
-        address_ = value;
+  
+        headAddr_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string address = 3;</code>
+       * <code>string head_addr = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearAddress() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        address_ = getDefaultInstance().getAddress();
+      public Builder clearHeadAddr() {
+        
+        headAddr_ = getDefaultInstance().getHeadAddr();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string address = 3;</code>
-       * @param value The bytes for address to set.
+       * <code>string head_addr = 3;</code>
+       * @param value The bytes for headAddr to set.
        * @return This builder for chaining.
        */
-      public Builder setAddressBytes(
+      public Builder setHeadAddrBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
-        address_ = value;
+  checkByteStringIsUtf8(value);
+        
+        headAddr_ = value;
         onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList intArr_ = emptyIntList();
+      private void ensureIntArrIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          intArr_ = mutableCopy(intArr_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Integer&gt;
+       * </pre>
+       *
+       * <code>repeated int32 int_arr = 4;</code>
+       * @return A list containing the intArr.
+       */
+      public java.util.List<java.lang.Integer>
+          getIntArrList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(intArr_) : intArr_;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Integer&gt;
+       * </pre>
+       *
+       * <code>repeated int32 int_arr = 4;</code>
+       * @return The count of intArr.
+       */
+      public int getIntArrCount() {
+        return intArr_.size();
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Integer&gt;
+       * </pre>
+       *
+       * <code>repeated int32 int_arr = 4;</code>
+       * @param index The index of the element to return.
+       * @return The intArr at the given index.
+       */
+      public int getIntArr(int index) {
+        return intArr_.getInt(index);
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Integer&gt;
+       * </pre>
+       *
+       * <code>repeated int32 int_arr = 4;</code>
+       * @param index The index to set the value at.
+       * @param value The intArr to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIntArr(
+          int index, int value) {
+        ensureIntArrIsMutable();
+        intArr_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Integer&gt;
+       * </pre>
+       *
+       * <code>repeated int32 int_arr = 4;</code>
+       * @param value The intArr to add.
+       * @return This builder for chaining.
+       */
+      public Builder addIntArr(int value) {
+        ensureIntArrIsMutable();
+        intArr_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Integer&gt;
+       * </pre>
+       *
+       * <code>repeated int32 int_arr = 4;</code>
+       * @param values The intArr to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllIntArr(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureIntArrIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, intArr_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Integer&gt;
+       * </pre>
+       *
+       * <code>repeated int32 int_arr = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIntArr() {
+        intArr_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<protobuf.DataInfo.Person> personArr_ =
+        java.util.Collections.emptyList();
+      private void ensurePersonArrIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          personArr_ = new java.util.ArrayList<protobuf.DataInfo.Person>(personArr_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protobuf.DataInfo.Person, protobuf.DataInfo.Person.Builder, protobuf.DataInfo.PersonOrBuilder> personArrBuilder_;
+
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public java.util.List<protobuf.DataInfo.Person> getPersonArrList() {
+        if (personArrBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(personArr_);
+        } else {
+          return personArrBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public int getPersonArrCount() {
+        if (personArrBuilder_ == null) {
+          return personArr_.size();
+        } else {
+          return personArrBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public protobuf.DataInfo.Person getPersonArr(int index) {
+        if (personArrBuilder_ == null) {
+          return personArr_.get(index);
+        } else {
+          return personArrBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder setPersonArr(
+          int index, protobuf.DataInfo.Person value) {
+        if (personArrBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePersonArrIsMutable();
+          personArr_.set(index, value);
+          onChanged();
+        } else {
+          personArrBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder setPersonArr(
+          int index, protobuf.DataInfo.Person.Builder builderForValue) {
+        if (personArrBuilder_ == null) {
+          ensurePersonArrIsMutable();
+          personArr_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          personArrBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder addPersonArr(protobuf.DataInfo.Person value) {
+        if (personArrBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePersonArrIsMutable();
+          personArr_.add(value);
+          onChanged();
+        } else {
+          personArrBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder addPersonArr(
+          int index, protobuf.DataInfo.Person value) {
+        if (personArrBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePersonArrIsMutable();
+          personArr_.add(index, value);
+          onChanged();
+        } else {
+          personArrBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder addPersonArr(
+          protobuf.DataInfo.Person.Builder builderForValue) {
+        if (personArrBuilder_ == null) {
+          ensurePersonArrIsMutable();
+          personArr_.add(builderForValue.build());
+          onChanged();
+        } else {
+          personArrBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder addPersonArr(
+          int index, protobuf.DataInfo.Person.Builder builderForValue) {
+        if (personArrBuilder_ == null) {
+          ensurePersonArrIsMutable();
+          personArr_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          personArrBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder addAllPersonArr(
+          java.lang.Iterable<? extends protobuf.DataInfo.Person> values) {
+        if (personArrBuilder_ == null) {
+          ensurePersonArrIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, personArr_);
+          onChanged();
+        } else {
+          personArrBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder clearPersonArr() {
+        if (personArrBuilder_ == null) {
+          personArr_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          personArrBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public Builder removePersonArr(int index) {
+        if (personArrBuilder_ == null) {
+          ensurePersonArrIsMutable();
+          personArr_.remove(index);
+          onChanged();
+        } else {
+          personArrBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public protobuf.DataInfo.Person.Builder getPersonArrBuilder(
+          int index) {
+        return getPersonArrFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public protobuf.DataInfo.PersonOrBuilder getPersonArrOrBuilder(
+          int index) {
+        if (personArrBuilder_ == null) {
+          return personArr_.get(index);  } else {
+          return personArrBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public java.util.List<? extends protobuf.DataInfo.PersonOrBuilder> 
+           getPersonArrOrBuilderList() {
+        if (personArrBuilder_ != null) {
+          return personArrBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(personArr_);
+        }
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public protobuf.DataInfo.Person.Builder addPersonArrBuilder() {
+        return getPersonArrFieldBuilder().addBuilder(
+            protobuf.DataInfo.Person.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public protobuf.DataInfo.Person.Builder addPersonArrBuilder(
+          int index) {
+        return getPersonArrFieldBuilder().addBuilder(
+            index, protobuf.DataInfo.Person.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * 定义List&lt;Person&gt;
+       * </pre>
+       *
+       * <code>repeated .model.domain.Person person_arr = 5;</code>
+       */
+      public java.util.List<protobuf.DataInfo.Person.Builder> 
+           getPersonArrBuilderList() {
+        return getPersonArrFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          protobuf.DataInfo.Person, protobuf.DataInfo.Person.Builder, protobuf.DataInfo.PersonOrBuilder> 
+          getPersonArrFieldBuilder() {
+        if (personArrBuilder_ == null) {
+          personArrBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              protobuf.DataInfo.Person, protobuf.DataInfo.Person.Builder, protobuf.DataInfo.PersonOrBuilder>(
+                  personArr_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          personArr_ = null;
+        }
+        return personArrBuilder_;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, protobuf.DataInfo.Person> personMap_;
+      private com.google.protobuf.MapField<java.lang.String, protobuf.DataInfo.Person>
+      internalGetPersonMap() {
+        if (personMap_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              PersonMapDefaultEntryHolder.defaultEntry);
+        }
+        return personMap_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, protobuf.DataInfo.Person>
+      internalGetMutablePersonMap() {
+        onChanged();;
+        if (personMap_ == null) {
+          personMap_ = com.google.protobuf.MapField.newMapField(
+              PersonMapDefaultEntryHolder.defaultEntry);
+        }
+        if (!personMap_.isMutable()) {
+          personMap_ = personMap_.copy();
+        }
+        return personMap_;
+      }
+
+      public int getPersonMapCount() {
+        return internalGetPersonMap().getMap().size();
+      }
+      /**
+       * <pre>
+       * 定义Map&lt;String,Person&gt;
+       * </pre>
+       *
+       * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+       */
+
+      public boolean containsPersonMap(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetPersonMap().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getPersonMapMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, protobuf.DataInfo.Person> getPersonMap() {
+        return getPersonMapMap();
+      }
+      /**
+       * <pre>
+       * 定义Map&lt;String,Person&gt;
+       * </pre>
+       *
+       * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+       */
+
+      public java.util.Map<java.lang.String, protobuf.DataInfo.Person> getPersonMapMap() {
+        return internalGetPersonMap().getMap();
+      }
+      /**
+       * <pre>
+       * 定义Map&lt;String,Person&gt;
+       * </pre>
+       *
+       * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+       */
+
+      public protobuf.DataInfo.Person getPersonMapOrDefault(
+          java.lang.String key,
+          protobuf.DataInfo.Person defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, protobuf.DataInfo.Person> map =
+            internalGetPersonMap().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * 定义Map&lt;String,Person&gt;
+       * </pre>
+       *
+       * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+       */
+
+      public protobuf.DataInfo.Person getPersonMapOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, protobuf.DataInfo.Person> map =
+            internalGetPersonMap().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearPersonMap() {
+        internalGetMutablePersonMap().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义Map&lt;String,Person&gt;
+       * </pre>
+       *
+       * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+       */
+
+      public Builder removePersonMap(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutablePersonMap().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, protobuf.DataInfo.Person>
+      getMutablePersonMap() {
+        return internalGetMutablePersonMap().getMutableMap();
+      }
+      /**
+       * <pre>
+       * 定义Map&lt;String,Person&gt;
+       * </pre>
+       *
+       * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+       */
+      public Builder putPersonMap(
+          java.lang.String key,
+          protobuf.DataInfo.Person value) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutablePersonMap().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <pre>
+       * 定义Map&lt;String,Person&gt;
+       * </pre>
+       *
+       * <code>map&lt;string, .model.domain.Person&gt; person_map = 6;</code>
+       */
+
+      public Builder putAllPersonMap(
+          java.util.Map<java.lang.String, protobuf.DataInfo.Person> values) {
+        internalGetMutablePersonMap().getMutableMap()
+            .putAll(values);
         return this;
       }
       @java.lang.Override
@@ -2289,7 +3015,7 @@ public final class DataInfo {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<Student>
+    private static final com.google.protobuf.Parser<Student>
         PARSER = new com.google.protobuf.AbstractParser<Student>() {
       @java.lang.Override
       public Student parsePartialFrom(
@@ -2321,45 +3047,30 @@ public final class DataInfo {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    boolean hasName();
-    /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
-     * <code>optional int32 age = 2;</code>
-     * @return Whether the age field is set.
-     */
-    boolean hasAge();
-    /**
-     * <code>optional int32 age = 2;</code>
+     * <code>int32 age = 2;</code>
      * @return The age.
      */
     int getAge();
 
     /**
-     * <code>optional string sex = 3;</code>
-     * @return Whether the sex field is set.
-     */
-    boolean hasSex();
-    /**
-     * <code>optional string sex = 3;</code>
+     * <code>string sex = 3;</code>
      * @return The sex.
      */
     java.lang.String getSex();
     /**
-     * <code>optional string sex = 3;</code>
+     * <code>string sex = 3;</code>
      * @return The bytes for sex.
      */
     com.google.protobuf.ByteString
@@ -2402,7 +3113,6 @@ public final class DataInfo {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2414,20 +3124,20 @@ public final class DataInfo {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              name_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
               break;
             }
             case 16: {
-              bitField0_ |= 0x00000002;
+
               age_ = input.readInt32();
               break;
             }
             case 26: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000004;
-              sex_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sex_ = s;
               break;
             }
             default: {
@@ -2462,18 +3172,10 @@ public final class DataInfo {
               protobuf.DataInfo.Person.class, protobuf.DataInfo.Person.Builder.class);
     }
 
-    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     private volatile java.lang.Object name_;
     /**
-     * <code>required string name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The name.
      */
     public java.lang.String getName() {
@@ -2484,14 +3186,12 @@ public final class DataInfo {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
+        name_ = s;
         return s;
       }
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The bytes for name.
      */
     public com.google.protobuf.ByteString
@@ -2511,14 +3211,7 @@ public final class DataInfo {
     public static final int AGE_FIELD_NUMBER = 2;
     private int age_;
     /**
-     * <code>optional int32 age = 2;</code>
-     * @return Whether the age field is set.
-     */
-    public boolean hasAge() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <code>optional int32 age = 2;</code>
+     * <code>int32 age = 2;</code>
      * @return The age.
      */
     public int getAge() {
@@ -2528,14 +3221,7 @@ public final class DataInfo {
     public static final int SEX_FIELD_NUMBER = 3;
     private volatile java.lang.Object sex_;
     /**
-     * <code>optional string sex = 3;</code>
-     * @return Whether the sex field is set.
-     */
-    public boolean hasSex() {
-      return ((bitField0_ & 0x00000004) != 0);
-    }
-    /**
-     * <code>optional string sex = 3;</code>
+     * <code>string sex = 3;</code>
      * @return The sex.
      */
     public java.lang.String getSex() {
@@ -2546,14 +3232,12 @@ public final class DataInfo {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          sex_ = s;
-        }
+        sex_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string sex = 3;</code>
+     * <code>string sex = 3;</code>
      * @return The bytes for sex.
      */
     public com.google.protobuf.ByteString
@@ -2577,10 +3261,6 @@ public final class DataInfo {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2588,13 +3268,13 @@ public final class DataInfo {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (!getNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (age_ != 0) {
         output.writeInt32(2, age_);
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (!getSexBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sex_);
       }
       unknownFields.writeTo(output);
@@ -2606,14 +3286,14 @@ public final class DataInfo {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (!getNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (age_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, age_);
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (!getSexBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sex_);
       }
       size += unknownFields.getSerializedSize();
@@ -2631,21 +3311,12 @@ public final class DataInfo {
       }
       protobuf.DataInfo.Person other = (protobuf.DataInfo.Person) obj;
 
-      if (hasName() != other.hasName()) return false;
-      if (hasName()) {
-        if (!getName()
-            .equals(other.getName())) return false;
-      }
-      if (hasAge() != other.hasAge()) return false;
-      if (hasAge()) {
-        if (getAge()
-            != other.getAge()) return false;
-      }
-      if (hasSex() != other.hasSex()) return false;
-      if (hasSex()) {
-        if (!getSex()
-            .equals(other.getSex())) return false;
-      }
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getAge()
+          != other.getAge()) return false;
+      if (!getSex()
+          .equals(other.getSex())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2657,18 +3328,12 @@ public final class DataInfo {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasName()) {
-        hash = (37 * hash) + NAME_FIELD_NUMBER;
-        hash = (53 * hash) + getName().hashCode();
-      }
-      if (hasAge()) {
-        hash = (37 * hash) + AGE_FIELD_NUMBER;
-        hash = (53 * hash) + getAge();
-      }
-      if (hasSex()) {
-        hash = (37 * hash) + SEX_FIELD_NUMBER;
-        hash = (53 * hash) + getSex().hashCode();
-      }
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + AGE_FIELD_NUMBER;
+      hash = (53 * hash) + getAge();
+      hash = (37 * hash) + SEX_FIELD_NUMBER;
+      hash = (53 * hash) + getSex().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2803,11 +3468,11 @@ public final class DataInfo {
       public Builder clear() {
         super.clear();
         name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         age_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
+
         sex_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
+
         return this;
       }
 
@@ -2834,21 +3499,9 @@ public final class DataInfo {
       @java.lang.Override
       public protobuf.DataInfo.Person buildPartial() {
         protobuf.DataInfo.Person result = new protobuf.DataInfo.Person(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.age_ = age_;
-          to_bitField0_ |= 0x00000002;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          to_bitField0_ |= 0x00000004;
-        }
+        result.age_ = age_;
         result.sex_ = sex_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -2897,16 +3550,14 @@ public final class DataInfo {
 
       public Builder mergeFrom(protobuf.DataInfo.Person other) {
         if (other == protobuf.DataInfo.Person.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
         }
-        if (other.hasAge()) {
+        if (other.getAge() != 0) {
           setAge(other.getAge());
         }
-        if (other.hasSex()) {
-          bitField0_ |= 0x00000004;
+        if (!other.getSex().isEmpty()) {
           sex_ = other.sex_;
           onChanged();
         }
@@ -2917,9 +3568,6 @@ public final class DataInfo {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasName()) {
-          return false;
-        }
         return true;
       }
 
@@ -2941,18 +3589,10 @@ public final class DataInfo {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object name_ = "";
       /**
-       * <code>required string name = 1;</code>
-       * @return Whether the name field is set.
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @return The name.
        */
       public java.lang.String getName() {
@@ -2961,16 +3601,14 @@ public final class DataInfo {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
+          name_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
@@ -2987,7 +3625,7 @@ public final class DataInfo {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @param value The name to set.
        * @return This builder for chaining.
        */
@@ -2996,23 +3634,23 @@ public final class DataInfo {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>string name = 1;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
        */
@@ -3021,7 +3659,8 @@ public final class DataInfo {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         name_ = value;
         onChanged();
         return this;
@@ -3029,36 +3668,29 @@ public final class DataInfo {
 
       private int age_ ;
       /**
-       * <code>optional int32 age = 2;</code>
-       * @return Whether the age field is set.
-       */
-      public boolean hasAge() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>optional int32 age = 2;</code>
+       * <code>int32 age = 2;</code>
        * @return The age.
        */
       public int getAge() {
         return age_;
       }
       /**
-       * <code>optional int32 age = 2;</code>
+       * <code>int32 age = 2;</code>
        * @param value The age to set.
        * @return This builder for chaining.
        */
       public Builder setAge(int value) {
-        bitField0_ |= 0x00000002;
+        
         age_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 age = 2;</code>
+       * <code>int32 age = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearAge() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         age_ = 0;
         onChanged();
         return this;
@@ -3066,14 +3698,7 @@ public final class DataInfo {
 
       private java.lang.Object sex_ = "";
       /**
-       * <code>optional string sex = 3;</code>
-       * @return Whether the sex field is set.
-       */
-      public boolean hasSex() {
-        return ((bitField0_ & 0x00000004) != 0);
-      }
-      /**
-       * <code>optional string sex = 3;</code>
+       * <code>string sex = 3;</code>
        * @return The sex.
        */
       public java.lang.String getSex() {
@@ -3082,16 +3707,14 @@ public final class DataInfo {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            sex_ = s;
-          }
+          sex_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string sex = 3;</code>
+       * <code>string sex = 3;</code>
        * @return The bytes for sex.
        */
       public com.google.protobuf.ByteString
@@ -3108,7 +3731,7 @@ public final class DataInfo {
         }
       }
       /**
-       * <code>optional string sex = 3;</code>
+       * <code>string sex = 3;</code>
        * @param value The sex to set.
        * @return This builder for chaining.
        */
@@ -3117,23 +3740,23 @@ public final class DataInfo {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  
         sex_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sex = 3;</code>
+       * <code>string sex = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearSex() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        
         sex_ = getDefaultInstance().getSex();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sex = 3;</code>
+       * <code>string sex = 3;</code>
        * @param value The bytes for sex to set.
        * @return This builder for chaining.
        */
@@ -3142,7 +3765,8 @@ public final class DataInfo {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  checkByteStringIsUtf8(value);
+        
         sex_ = value;
         onChanged();
         return this;
@@ -3173,7 +3797,7 @@ public final class DataInfo {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<Person>
+    private static final com.google.protobuf.Parser<Person>
         PARSER = new com.google.protobuf.AbstractParser<Person>() {
       @java.lang.Override
       public Person parsePartialFrom(
@@ -3200,806 +3824,6 @@ public final class DataInfo {
 
   }
 
-  public interface UserOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:model.domain.User)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required string name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    boolean hasName();
-    /**
-     * <code>required string name = 1;</code>
-     * @return The name.
-     */
-    java.lang.String getName();
-    /**
-     * <code>required string name = 1;</code>
-     * @return The bytes for name.
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>optional int32 age = 2;</code>
-     * @return Whether the age field is set.
-     */
-    boolean hasAge();
-    /**
-     * <code>optional int32 age = 2;</code>
-     * @return The age.
-     */
-    int getAge();
-
-    /**
-     * <code>optional int32 height = 3;</code>
-     * @return Whether the height field is set.
-     */
-    boolean hasHeight();
-    /**
-     * <code>optional int32 height = 3;</code>
-     * @return The height.
-     */
-    int getHeight();
-  }
-  /**
-   * Protobuf type {@code model.domain.User}
-   */
-  public  static final class User extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:model.domain.User)
-      UserOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use User.newBuilder() to construct.
-    private User(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private User() {
-      name_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new User();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private User(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              name_ = bs;
-              break;
-            }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              age_ = input.readInt32();
-              break;
-            }
-            case 24: {
-              bitField0_ |= 0x00000004;
-              height_ = input.readInt32();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return protobuf.DataInfo.internal_static_model_domain_User_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return protobuf.DataInfo.internal_static_model_domain_User_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              protobuf.DataInfo.User.class, protobuf.DataInfo.User.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>required string name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required string name = 1;</code>
-     * @return The name.
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string name = 1;</code>
-     * @return The bytes for name.
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int AGE_FIELD_NUMBER = 2;
-    private int age_;
-    /**
-     * <code>optional int32 age = 2;</code>
-     * @return Whether the age field is set.
-     */
-    public boolean hasAge() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <code>optional int32 age = 2;</code>
-     * @return The age.
-     */
-    public int getAge() {
-      return age_;
-    }
-
-    public static final int HEIGHT_FIELD_NUMBER = 3;
-    private int height_;
-    /**
-     * <code>optional int32 height = 3;</code>
-     * @return Whether the height field is set.
-     */
-    public boolean hasHeight() {
-      return ((bitField0_ & 0x00000004) != 0);
-    }
-    /**
-     * <code>optional int32 height = 3;</code>
-     * @return The height.
-     */
-    public int getHeight() {
-      return height_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeInt32(2, age_);
-      }
-      if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeInt32(3, height_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, age_);
-      }
-      if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, height_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof protobuf.DataInfo.User)) {
-        return super.equals(obj);
-      }
-      protobuf.DataInfo.User other = (protobuf.DataInfo.User) obj;
-
-      if (hasName() != other.hasName()) return false;
-      if (hasName()) {
-        if (!getName()
-            .equals(other.getName())) return false;
-      }
-      if (hasAge() != other.hasAge()) return false;
-      if (hasAge()) {
-        if (getAge()
-            != other.getAge()) return false;
-      }
-      if (hasHeight() != other.hasHeight()) return false;
-      if (hasHeight()) {
-        if (getHeight()
-            != other.getHeight()) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasName()) {
-        hash = (37 * hash) + NAME_FIELD_NUMBER;
-        hash = (53 * hash) + getName().hashCode();
-      }
-      if (hasAge()) {
-        hash = (37 * hash) + AGE_FIELD_NUMBER;
-        hash = (53 * hash) + getAge();
-      }
-      if (hasHeight()) {
-        hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
-        hash = (53 * hash) + getHeight();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static protobuf.DataInfo.User parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static protobuf.DataInfo.User parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static protobuf.DataInfo.User parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static protobuf.DataInfo.User parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static protobuf.DataInfo.User parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static protobuf.DataInfo.User parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static protobuf.DataInfo.User parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static protobuf.DataInfo.User parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static protobuf.DataInfo.User parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static protobuf.DataInfo.User parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static protobuf.DataInfo.User parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static protobuf.DataInfo.User parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(protobuf.DataInfo.User prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code model.domain.User}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:model.domain.User)
-        protobuf.DataInfo.UserOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return protobuf.DataInfo.internal_static_model_domain_User_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return protobuf.DataInfo.internal_static_model_domain_User_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                protobuf.DataInfo.User.class, protobuf.DataInfo.User.Builder.class);
-      }
-
-      // Construct using protobuf.DataInfo.User.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        age_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        height_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return protobuf.DataInfo.internal_static_model_domain_User_descriptor;
-      }
-
-      @java.lang.Override
-      public protobuf.DataInfo.User getDefaultInstanceForType() {
-        return protobuf.DataInfo.User.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public protobuf.DataInfo.User build() {
-        protobuf.DataInfo.User result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public protobuf.DataInfo.User buildPartial() {
-        protobuf.DataInfo.User result = new protobuf.DataInfo.User(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.age_ = age_;
-          to_bitField0_ |= 0x00000002;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.height_ = height_;
-          to_bitField0_ |= 0x00000004;
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof protobuf.DataInfo.User) {
-          return mergeFrom((protobuf.DataInfo.User)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(protobuf.DataInfo.User other) {
-        if (other == protobuf.DataInfo.User.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          bitField0_ |= 0x00000001;
-          name_ = other.name_;
-          onChanged();
-        }
-        if (other.hasAge()) {
-          setAge(other.getAge());
-        }
-        if (other.hasHeight()) {
-          setHeight(other.getHeight());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        if (!hasName()) {
-          return false;
-        }
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        protobuf.DataInfo.User parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (protobuf.DataInfo.User) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object name_ = "";
-      /**
-       * <code>required string name = 1;</code>
-       * @return Whether the name field is set.
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required string name = 1;</code>
-       * @return The name.
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string name = 1;</code>
-       * @return The bytes for name.
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string name = 1;</code>
-       * @param value The name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string name = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string name = 1;</code>
-       * @param value The bytes for name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int age_ ;
-      /**
-       * <code>optional int32 age = 2;</code>
-       * @return Whether the age field is set.
-       */
-      public boolean hasAge() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>optional int32 age = 2;</code>
-       * @return The age.
-       */
-      public int getAge() {
-        return age_;
-      }
-      /**
-       * <code>optional int32 age = 2;</code>
-       * @param value The age to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAge(int value) {
-        bitField0_ |= 0x00000002;
-        age_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 age = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAge() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        age_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int height_ ;
-      /**
-       * <code>optional int32 height = 3;</code>
-       * @return Whether the height field is set.
-       */
-      public boolean hasHeight() {
-        return ((bitField0_ & 0x00000004) != 0);
-      }
-      /**
-       * <code>optional int32 height = 3;</code>
-       * @return The height.
-       */
-      public int getHeight() {
-        return height_;
-      }
-      /**
-       * <code>optional int32 height = 3;</code>
-       * @param value The height to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHeight(int value) {
-        bitField0_ |= 0x00000004;
-        height_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 height = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHeight() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        height_ = 0;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:model.domain.User)
-    }
-
-    // @@protoc_insertion_point(class_scope:model.domain.User)
-    private static final protobuf.DataInfo.User DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new protobuf.DataInfo.User();
-    }
-
-    public static protobuf.DataInfo.User getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<User>
-        PARSER = new com.google.protobuf.AbstractParser<User>() {
-      @java.lang.Override
-      public User parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new User(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<User> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<User> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public protobuf.DataInfo.User getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_model_domain_MyMessage_descriptor;
   private static final 
@@ -4011,15 +3835,15 @@ public final class DataInfo {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_model_domain_Student_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_model_domain_Student_PersonMapEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_model_domain_Student_PersonMapEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_model_domain_Person_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_model_domain_Person_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_model_domain_User_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_model_domain_User_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4030,18 +3854,20 @@ public final class DataInfo {
   static {
     java.lang.String[] descriptorData = {
       "\n2chat-common/src/main/java/protobuf/MyM" +
-      "essage.proto\022\014model.domain\"\375\001\n\tMyMessage" +
-      "\0223\n\tdata_type\030\001 \002(\0162 .model.domain.MyMes" +
+      "essage.proto\022\014model.domain\"\313\001\n\tMyMessage" +
+      "\0223\n\tdata_type\030\001 \001(\0162 .model.domain.MyMes" +
       "sage.DataType\022(\n\007student\030\002 \001(\0132\025.model.d" +
       "omain.StudentH\000\022&\n\006person\030\003 \001(\0132\024.model." +
-      "domain.PersonH\000\022\"\n\004user\030\004 \001(\0132\022.model.do" +
-      "main.UserH\000\"9\n\010DataType\022\017\n\013StudentType\020\001" +
-      "\022\016\n\nPersonType\020\002\022\014\n\010UserType\020\003B\n\n\010dataBo" +
-      "dy\"5\n\007Student\022\014\n\004name\030\001 \002(\t\022\013\n\003age\030\002 \001(\005" +
-      "\022\017\n\007address\030\003 \001(\t\"0\n\006Person\022\014\n\004name\030\001 \002(" +
-      "\t\022\013\n\003age\030\002 \001(\005\022\013\n\003sex\030\003 \001(\t\"1\n\004User\022\014\n\004n" +
-      "ame\030\001 \002(\t\022\013\n\003age\030\002 \001(\005\022\016\n\006height\030\003 \001(\005B\024" +
-      "\n\010protobufB\010DataInfo"
+      "domain.PersonH\000\"+\n\010DataType\022\017\n\013StudentTy" +
+      "pe\020\000\022\016\n\nPersonType\020\001B\n\n\010dataBody\"\364\001\n\007Stu" +
+      "dent\022\014\n\004name\030\001 \001(\t\022\013\n\003age\030\002 \001(\005\022\021\n\thead_" +
+      "addr\030\003 \001(\t\022\017\n\007int_arr\030\004 \003(\005\022(\n\nperson_ar" +
+      "r\030\005 \003(\0132\024.model.domain.Person\0228\n\nperson_" +
+      "map\030\006 \003(\0132$.model.domain.Student.PersonM" +
+      "apEntry\032F\n\016PersonMapEntry\022\013\n\003key\030\001 \001(\t\022#" +
+      "\n\005value\030\002 \001(\0132\024.model.domain.Person:\0028\001\"" +
+      "0\n\006Person\022\014\n\004name\030\001 \001(\t\022\013\n\003age\030\002 \001(\005\022\013\n\003" +
+      "sex\030\003 \001(\tB\024\n\010protobufB\010DataInfob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4052,25 +3878,25 @@ public final class DataInfo {
     internal_static_model_domain_MyMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_model_domain_MyMessage_descriptor,
-        new java.lang.String[] { "DataType", "Student", "Person", "User", "DataBody", });
+        new java.lang.String[] { "DataType", "Student", "Person", "DataBody", });
     internal_static_model_domain_Student_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_model_domain_Student_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_model_domain_Student_descriptor,
-        new java.lang.String[] { "Name", "Age", "Address", });
+        new java.lang.String[] { "Name", "Age", "HeadAddr", "IntArr", "PersonArr", "PersonMap", });
+    internal_static_model_domain_Student_PersonMapEntry_descriptor =
+      internal_static_model_domain_Student_descriptor.getNestedTypes().get(0);
+    internal_static_model_domain_Student_PersonMapEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_model_domain_Student_PersonMapEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
     internal_static_model_domain_Person_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_model_domain_Person_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_model_domain_Person_descriptor,
         new java.lang.String[] { "Name", "Age", "Sex", });
-    internal_static_model_domain_User_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_model_domain_User_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_model_domain_User_descriptor,
-        new java.lang.String[] { "Name", "Age", "Height", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

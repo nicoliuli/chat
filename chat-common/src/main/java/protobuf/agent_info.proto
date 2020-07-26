@@ -1,0 +1,100 @@
+syntax = "proto2";
+
+import "base/resp.proto";
+import "agentsvc/account_info.proto";
+import "agentsvc/agentsvc_common_enum.proto";
+
+option java_package = "com.qingqing.agent.proto.agent";
+option java_outer_classname = "AgentSvcAgentInfoProto";
+option objc_class_prefix = "AGENTGPB";
+
+
+
+//L20200528 代理商详情信息
+message AgentSvcAgentDetail{
+	optional int64 id = 1;                                              //id
+	optional AgentSvcAgentTypeEnum agent_type = 2;                      //代理商类型
+	optional AgentSvcAgentDirectionTypeEnum agent_direction_type = 3;   //代理商方向
+	optional AgentSvcAgentLevel agent_level = 4;                        //代理商等级 A B C
+	optional AgentSvcAgencyTypeEnum agency_type = 5;                    //代理类型
+	optional string agent_name = 6;                                     //代理商名称
+	optional int64 city_id = 7;                                         //城市ID
+	repeated AgentSvcLeadsImportTargetType leads_import_target = 8;     //线索导入去向
+	optional int32 normal_quality_leads_limit = 9;                      //普通leads每月数量限制
+	optional int32 high_quality_leads_limit = 10;                       //高质量leads每月数量限制
+	optional int32 station_leads_limit= 11;                             //驻点leads每月数量限制
+	optional int64 proxy_sale_company_id = 12;                          //代销公司ID
+	optional string proxy_sale_company_name = 13;                       //代销公司名称
+	optional string operation_staff_name = 14;                          //对应运营名字
+	optional string operation_staff_phone = 15;                          //对应运营手机号
+	optional string remark = 16;                                        //备注
+	optional int64 update_time = 17;                                     //更新时间
+	optional string update_user = 18;                                    //跟新人
+	optional AgentSvcAgentStatusEnum agent_status = 19;                  //账号状态
+}
+
+//L20200528 代理商详情返回请求
+message AgentSvcAgentDetailResponse{
+	optional BaseResponse response = 1;
+	optional AgentSvcAgentDetail detail = 2;
+}
+
+
+//L20200528 代理商名称模糊查询响应
+message AgentSvcAgentNameFuzzySearchResponse{
+	optional BaseResponse response = 1;
+	repeated AgentSvcAgentNameGroup agent_groups = 2;
+}
+
+//L20200528 代理商名称线索导入组
+message AgentSvcAgentNameGroup{
+	optional int64 id = 1;
+	optional string name = 2;  //名称
+	repeated AgentSvcLeadsImportTargetType leads_import_target = 3;  //线索导入池
+	optional AgentSvcAgentDirectionTypeEnum direction_type = 4; //代理商方向
+}
+
+//L20200528 代理商列表查询
+message AgentSvcAgentPageSearchRequest{
+	optional int32 page_no = 1;
+	optional int32 page_size = 2;
+	optional AgentSvcAgencyTypeEnum agency_type= 3;                 //代理类型
+	optional AgentSvcAgentLevel agent_level = 4;                    //代理商等级
+	optional string search_keyword = 5;                             //搜索关键词
+	optional string search_keyword_phone = 6;                       //搜索关键词(手机号)
+	optional AgentSvcAgentKeywordStatusEnum keyword_type = 7;       //关键字查询类型
+	optional bool is_show_me= 8;                                    //是否仅展示我创建更新
+}
+
+//L20200528 代理商列表查询结果
+message AgentSvcAgentPageSearchResponse{
+	optional BaseResponse response = 1;
+	repeated AgentSvcAgentDetail agentSvcAgentDetail= 2;
+	optional int32 total = 3;
+}
+
+//L20200528 代理商保存或编辑请求
+message AgentSvcAgentSaveOrUpdateRequest{
+	optional AgentSvcAgentDetail request= 1;
+}
+
+
+
+//L20200528 修改代理商冻结状态请求
+message AgentSvcChangeAgentFreezeStatusRequest{
+	optional int64 id= 1;                           //代理商id
+	optional AgentSvcAgentStatusEnum agentStatus= 2;    //冻结状态
+}
+
+//L20200528 运营名称模糊查询响应
+message AgentSvcOperationNameFuzzySearchResponse{
+	optional BaseResponse response = 1;
+	repeated AgentSvcOperationNameAndPhone operations= 2; //运营名称手机号
+}
+
+//L20200528 运营名称手机号
+message AgentSvcOperationNameAndPhone{
+	optional int64 id = 1;
+	optional string name = 2; //运营名称
+	optional string phone = 3; //运营手机号
+}

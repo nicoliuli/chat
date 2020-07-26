@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 package model.domain;
 
 option java_package = "protobuf";
@@ -6,37 +6,40 @@ option java_outer_classname = "DataInfo";
 
 
 message MyMessage {
+    // 定义
     enum DataType {
-        StudentType = 1;
-        PersonType = 2;
-        UserType = 3;
+        StudentType = 0;
+        PersonType = 1;
     }
 
-    required DataType data_type = 1;
+     DataType data_type = 1;
 
+    // oneof含义:传其中的一个属性 student或person
+    // 还有一种定义方式，把所有属性都定义成optional类型
     oneof dataBody {
         Student student = 2;
         Person person = 3;
-        User user = 4;
     }
 }
 
 
 message Student {
-    required string name = 1;
-    optional int32 age = 2;
-    optional string address = 3;
+     string name = 1;
+     int32 age = 2;
+     string head_addr = 3;
+     // 定义List<Integer>
+     repeated int32 int_arr = 4;
+     // 定义List<Person>
+     repeated Person person_arr = 5;
+     // 定义Map<String,Person>
+     map<string,Person> person_map = 6;
 }
+
+
 
 message Person {
-    required string name = 1;
-    optional int32 age = 2;
-    optional string sex = 3;
-}
-
-message User {
-    required string name = 1;
-    optional int32 age = 2;
-    optional int32 height = 3;
+     string name = 1;
+     int32 age = 2;
+     string sex = 3;
 }
 
