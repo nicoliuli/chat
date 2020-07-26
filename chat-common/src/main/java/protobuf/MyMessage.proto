@@ -1,0 +1,42 @@
+syntax = "proto2";
+package model.domain;
+
+option java_package = "protobuf";
+option java_outer_classname = "DataInfo";
+
+
+message MyMessage {
+    enum DataType {
+        StudentType = 1;
+        PersonType = 2;
+        UserType = 3;
+    }
+
+    required DataType data_type = 1;
+
+    oneof dataBody {
+        Student student = 2;
+        Person person = 3;
+        User user = 4;
+    }
+}
+
+
+message Student {
+    required string name = 1;
+    optional int32 age = 2;
+    optional string address = 3;
+}
+
+message Person {
+    required string name = 1;
+    optional int32 age = 2;
+    optional string sex = 3;
+}
+
+message User {
+    required string name = 1;
+    optional int32 age = 2;
+    optional int32 height = 3;
+}
+
