@@ -1,7 +1,0 @@
-option java_package = "model.chat";
-option java_outer_classname = "RpcMsg";
-
-messagge Msg{
-
-
-}

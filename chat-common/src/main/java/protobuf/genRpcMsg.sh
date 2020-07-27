@@ -1,0 +1,1 @@
+protoc --java_out=chat-common/src/main/java chat-common/src/main/java/protobuf/RpcMsg.proto

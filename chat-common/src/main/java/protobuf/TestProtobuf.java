@@ -34,6 +34,7 @@ public class TestProtobuf {
                         .addAllIntArr(intList) // 构建List<Integer>
                         .addAllPersonArr(personList) //构建List<Person>
                         .putAllPersonMap(personMap) //构建Map<String,Person>
+                        .setLongNum(10L) // long
                         .build())
                 .build();
 

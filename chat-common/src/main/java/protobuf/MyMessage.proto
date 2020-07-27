@@ -1,5 +1,5 @@
 syntax = "proto3";
-package model.domain;
+// package model.domain;
 
 option java_package = "protobuf";
 option java_outer_classname = "DataInfo";
@@ -33,6 +33,7 @@ message Student {
      repeated Person person_arr = 5;
      // 定义Map<String,Person>
      map<string,Person> person_map = 6;
+     int64 long_num = 7;
 }
 
 

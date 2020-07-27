@@ -1322,6 +1322,12 @@ public final class DataInfo {
 
     protobuf.DataInfo.Person getPersonMapOrThrow(
         java.lang.String key);
+
+    /**
+     * <code>int64 long_num = 7;</code>
+     * @return The longNum.
+     */
+    long getLongNum();
   }
   /**
    * Protobuf type {@code model.domain.Student}
@@ -1431,6 +1437,11 @@ public final class DataInfo {
                   PersonMapDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
               personMap_.getMutableMap().put(
                   personMap__.getKey(), personMap__.getValue());
+              break;
+            }
+            case 56: {
+
+              longNum_ = input.readInt64();
               break;
             }
             default: {
@@ -1751,6 +1762,16 @@ public final class DataInfo {
       return map.get(key);
     }
 
+    public static final int LONG_NUM_FIELD_NUMBER = 7;
+    private long longNum_;
+    /**
+     * <code>int64 long_num = 7;</code>
+     * @return The longNum.
+     */
+    public long getLongNum() {
+      return longNum_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1791,6 +1812,9 @@ public final class DataInfo {
           internalGetPersonMap(),
           PersonMapDefaultEntryHolder.defaultEntry,
           6);
+      if (longNum_ != 0L) {
+        output.writeInt64(7, longNum_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1838,6 +1862,10 @@ public final class DataInfo {
         size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(6, personMap__);
       }
+      if (longNum_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(7, longNum_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1865,6 +1893,8 @@ public final class DataInfo {
           .equals(other.getPersonArrList())) return false;
       if (!internalGetPersonMap().equals(
           other.internalGetPersonMap())) return false;
+      if (getLongNum()
+          != other.getLongNum()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1894,6 +1924,9 @@ public final class DataInfo {
         hash = (37 * hash) + PERSON_MAP_FIELD_NUMBER;
         hash = (53 * hash) + internalGetPersonMap().hashCode();
       }
+      hash = (37 * hash) + LONG_NUM_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLongNum());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2065,6 +2098,8 @@ public final class DataInfo {
           personArrBuilder_.clear();
         }
         internalGetMutablePersonMap().clear();
+        longNum_ = 0L;
+
         return this;
       }
 
@@ -2111,6 +2146,7 @@ public final class DataInfo {
         }
         result.personMap_ = internalGetPersonMap();
         result.personMap_.makeImmutable();
+        result.longNum_ = longNum_;
         onBuilt();
         return result;
       }
@@ -2208,6 +2244,9 @@ public final class DataInfo {
         }
         internalGetMutablePersonMap().mergeFrom(
             other.internalGetPersonMap());
+        if (other.getLongNum() != 0L) {
+          setLongNum(other.getLongNum());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2987,6 +3026,36 @@ public final class DataInfo {
           java.util.Map<java.lang.String, protobuf.DataInfo.Person> values) {
         internalGetMutablePersonMap().getMutableMap()
             .putAll(values);
+        return this;
+      }
+
+      private long longNum_ ;
+      /**
+       * <code>int64 long_num = 7;</code>
+       * @return The longNum.
+       */
+      public long getLongNum() {
+        return longNum_;
+      }
+      /**
+       * <code>int64 long_num = 7;</code>
+       * @param value The longNum to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLongNum(long value) {
+        
+        longNum_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 long_num = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLongNum() {
+        
+        longNum_ = 0L;
+        onChanged();
         return this;
       }
       @java.lang.Override
@@ -3859,15 +3928,16 @@ public final class DataInfo {
       "sage.DataType\022(\n\007student\030\002 \001(\0132\025.model.d" +
       "omain.StudentH\000\022&\n\006person\030\003 \001(\0132\024.model." +
       "domain.PersonH\000\"+\n\010DataType\022\017\n\013StudentTy" +
-      "pe\020\000\022\016\n\nPersonType\020\001B\n\n\010dataBody\"\364\001\n\007Stu" +
+      "pe\020\000\022\016\n\nPersonType\020\001B\n\n\010dataBody\"\206\002\n\007Stu" +
       "dent\022\014\n\004name\030\001 \001(\t\022\013\n\003age\030\002 \001(\005\022\021\n\thead_" +
       "addr\030\003 \001(\t\022\017\n\007int_arr\030\004 \003(\005\022(\n\nperson_ar" +
       "r\030\005 \003(\0132\024.model.domain.Person\0228\n\nperson_" +
       "map\030\006 \003(\0132$.model.domain.Student.PersonM" +
-      "apEntry\032F\n\016PersonMapEntry\022\013\n\003key\030\001 \001(\t\022#" +
-      "\n\005value\030\002 \001(\0132\024.model.domain.Person:\0028\001\"" +
-      "0\n\006Person\022\014\n\004name\030\001 \001(\t\022\013\n\003age\030\002 \001(\005\022\013\n\003" +
-      "sex\030\003 \001(\tB\024\n\010protobufB\010DataInfob\006proto3"
+      "apEntry\022\020\n\010long_num\030\007 \001(\003\032F\n\016PersonMapEn" +
+      "try\022\013\n\003key\030\001 \001(\t\022#\n\005value\030\002 \001(\0132\024.model." +
+      "domain.Person:\0028\001\"0\n\006Person\022\014\n\004name\030\001 \001(" +
+      "\t\022\013\n\003age\030\002 \001(\005\022\013\n\003sex\030\003 \001(\tB\024\n\010protobufB" +
+      "\010DataInfob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3884,7 +3954,7 @@ public final class DataInfo {
     internal_static_model_domain_Student_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_model_domain_Student_descriptor,
-        new java.lang.String[] { "Name", "Age", "HeadAddr", "IntArr", "PersonArr", "PersonMap", });
+        new java.lang.String[] { "Name", "Age", "HeadAddr", "IntArr", "PersonArr", "PersonMap", "LongNum", });
     internal_static_model_domain_Student_PersonMapEntry_descriptor =
       internal_static_model_domain_Student_descriptor.getNestedTypes().get(0);
     internal_static_model_domain_Student_PersonMapEntry_fieldAccessorTable = new
