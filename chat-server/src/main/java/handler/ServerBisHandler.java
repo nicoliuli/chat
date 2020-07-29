@@ -3,9 +3,10 @@ package handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import model.chat.ChatMsg;
+import model.chat.RpcMsg;
 import utils.MsgProcessor;
 
-public class ServerBisHandler extends SimpleChannelInboundHandler<ChatMsg> {
+public class ServerBisHandler extends SimpleChannelInboundHandler<RpcMsg.Msg> {
 
 
     private MsgProcessor msgProcessor = new MsgProcessor();
@@ -27,8 +28,8 @@ public class ServerBisHandler extends SimpleChannelInboundHandler<ChatMsg> {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, ChatMsg chatMsg) throws Exception {
-        msgProcessor.msgProcessor(ctx.channel(),chatMsg);
+    protected void channelRead0(ChannelHandlerContext ctx, RpcMsg.Msg msg) throws Exception {
+        msgProcessor.msgProcessor(ctx.channel(),msg);
     }
 
 

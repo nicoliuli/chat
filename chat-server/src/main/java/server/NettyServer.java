@@ -1,22 +1,20 @@
 package server;
 
 import handler.IdleTimeoutHandler;
-import handler.Json2MsgDecoder;
-import handler.Msg2JsonEncoder;
 import handler.ServerBisHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import model.chat.RpcMsg;
 import properties.PropertiesMap;
 import utils.ZkUtil;
 
@@ -65,16 +63,14 @@ public class NettyServer {
 
         protected void initChannel(SocketChannel ch) throws Exception {
             //in解码
-            ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
-            ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
-            ch.pipeline().addLast(new Json2MsgDecoder());
+            ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
+            ch.pipeline().addLast(new ProtobufDecoder(RpcMsg.Msg.getDefaultInstance()));
             ch.pipeline().addLast(new IdleStateHandler(10, 10, 0, TimeUnit.SECONDS));
             ch.pipeline().addLast(new IdleTimeoutHandler());
             ch.pipeline().addLast("serverBisHandler", new ServerBisHandler());
             //out编码
-            ch.pipeline().addLast(new LengthFieldPrepender(4));
-            ch.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
-            ch.pipeline().addLast(new Msg2JsonEncoder());
+            ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
+            ch.pipeline().addLast(new ProtobufEncoder());
         }
     }
 }

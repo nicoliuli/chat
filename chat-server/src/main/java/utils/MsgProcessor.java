@@ -10,6 +10,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 import model.chat.ChatMsg;
 import model.chat.ChatType;
 import model.chat.MsgType;
+import model.chat.RpcMsg;
 import model.domain.User;
 import properties.CommonPropertiesFile;
 import properties.PropertiesMap;
@@ -17,6 +18,7 @@ import redis.clients.jedis.Jedis;
 import session.ServerSession;
 import session.ServerSessionMap;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -31,12 +33,12 @@ public class MsgProcessor {
      * @param channel
      * @param chatMsg
      */
-    public void msgProcessor(Channel channel, ChatMsg chatMsg) {
-        validateChatMsg(chatMsg);
-        if (chatMsg.getMsgType() == MsgType.MSGTYPE_LOGIN) {
-            processorLoginMsg(channel, chatMsg);
-        } else if (chatMsg.getMsgType() == MsgType.MSGTYPE_CHAT) { // 聊天消息
-            processorChatMsg(chatMsg);
+    public void msgProcessor(Channel channel, RpcMsg.Msg msg) {
+        validateChatMsg(msg);
+        if (msg.getMsgType() == MsgType.MSGTYPE_LOGIN) {
+            processorLoginMsg(channel, msg);
+        } else if (msg.getMsgType() == MsgType.MSGTYPE_CHAT) { // 聊天消息
+            processorChatMsg(msg);
         }
     }
 
@@ -73,11 +75,11 @@ public class MsgProcessor {
      *
      * @param chatMsg
      */
-    private void validateChatMsg(ChatMsg chatMsg) {
-        if (chatMsg == null) {
+    private void validateChatMsg(RpcMsg.Msg msg) {
+        if (msg == null) {
             throw new IllegalArgumentException("chatMsg is null");
         }
-        if (chatMsg.getMsgType() == null || chatMsg.getMsgType() == 0) {
+        if (msg.getMsgType() == 0) {
             throw new IllegalArgumentException("msgType error");
         }
     }
@@ -116,20 +118,20 @@ public class MsgProcessor {
         }
     }
 
-    private void processorLoginMsg(Channel channel, ChatMsg chatMsg) {
-        System.out.println("登录消息==> uid是 " + chatMsg.getFromUid() + " 的用户登录了");
+    private void processorLoginMsg(Channel channel, RpcMsg.Msg msg) {
+        System.out.println("登录消息==> uid是 " + msg.getFromUid() + " 的用户登录了");
         Jedis jedis = null;
         try {
             jedis = RedisUtil.getJedis();
-            String userJson = jedis.hget(RedisKey.userMapKey(), chatMsg.getFromUid() + "");
+            String userJson = jedis.hget(RedisKey.userMapKey(), msg.getFromUid() + "");
             User u = JSON.parseObject(userJson, User.class);
 
             // 处理本机器内会话
             ServerSession session = new ServerSession(u, channel).bind();
-            ServerSessionMap.add(chatMsg.getFromUid(), session);
+            ServerSessionMap.add(msg.getFromUid(), session);
 
             //处理集群会话,value->ip:port
-            jedis.set(RedisKey.sessionStore(chatMsg.getFromUid()), NodeUtil.node(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))));
+            jedis.set(RedisKey.sessionStore(msg.getFromUid()), NodeUtil.node(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))));
             // 暂时模拟向其他用户发消息，打通链路
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,17 +147,17 @@ public class MsgProcessor {
      *
      * @param chatMsg
      */
-    private void processorChatMsg(ChatMsg chatMsg) {
-        if (chatMsg.getChatType() == ChatType.SINGLE) {
-            System.out.println("收到client fromUid= " + chatMsg.getFromUid() + " 的消息");
-            SendMsgUtil.sendMsg(chatMsg);
-        } else if (chatMsg.getChatType() == ChatType.GROUP) {
-            System.out.println("收到群聊消息：" + chatMsg);
-            if (!CollectionUtil.isEmpty(chatMsg.getToUidList())) {
-                Set<Long> toUidList = chatMsg.getToUidList();
+    private void processorChatMsg(RpcMsg.Msg msg) {
+        if (msg.getChatType() == ChatType.SINGLE) {
+            System.out.println("收到client fromUid= " + msg.getFromUid() + " 的消息");
+            SendMsgUtil.sendMsg(msg);
+        } else if (msg.getChatType() == ChatType.GROUP) {
+            System.out.println("收到群聊消息：" + msg);
+            List<Long> toUidList = msg.getToUidListList();
+            if (!CollectionUtil.isEmpty(toUidList)) {
                 for (Long toUid : toUidList) {
-                    chatMsg.setToUid(toUid);
-                    SendMsgUtil.sendMsg(chatMsg);
+                    RpcMsg.Msg.Builder builder = RpcMsg.Msg.newBuilder(msg);
+                    SendMsgUtil.sendMsg(builder.setToUid(toUid).build());
                 }
             } else {
                 System.out.println("toUidList is empty");

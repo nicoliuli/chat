@@ -3,7 +3,7 @@ package utils;
 import io.netty.channel.Channel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import model.chat.ChatMsg;
+import model.chat.RpcMsg;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,8 +39,8 @@ public class ScannerUtil {
                             continue;
                         }
                         System.out.println("发送的内容是：" + line);
-                        ChatMsg chatMsg = ChatMsgUtil.buildSingleChatMsg(fromUid,Long.parseLong(toUid),line);
-                        channel.writeAndFlush(chatMsg);
+                        RpcMsg.Msg msg = ChatMsgUtil.buildSingleChatMsg(fromUid,Long.parseLong(toUid),line);
+                        channel.writeAndFlush(msg);
 
                     }
 
@@ -63,8 +63,8 @@ public class ScannerUtil {
                         String[] split = line.split("-->");
                         String text = split[0];
                         List<String> toUidList = Arrays.asList(split[1].split(","));
-                        ChatMsg chatMsg = ChatMsgUtil.buildGroupChatMsg(fromUid,toUidList,text);
-                        channel.writeAndFlush(chatMsg);
+                        RpcMsg.Msg msg = ChatMsgUtil.buildGroupChatMsg(fromUid,toUidList,text);
+                        channel.writeAndFlush(msg);
                     }
                 }
             }

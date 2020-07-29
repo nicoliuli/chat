@@ -7,10 +7,7 @@ import properties.PropertiesMap;
 import redis.clients.jedis.Jedis;
 import session.ServerSession;
 import session.ServerSessionMap;
-import utils.CollectionUtil;
-import utils.NodeUtil;
-import utils.RedisUtil;
-import utils.SendMsgUtil;
+import utils.*;
 
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class ChatMsgConsumer {
                     System.out.println("来自其他集群的消息：" + msgString);
                     ChatMsg chatMsg = JSON.parseObject(msgString, ChatMsg.class);
                     if (checkUserLogin(chatMsg)) {
-                        SendMsgUtil.sendMsg(chatMsg);
+                        SendMsgUtil.sendMsg(ChatMsgUtil.chatMsg2RpcMsg(chatMsg));
                         continue;
                     }
                     System.out.println(chatMsg.getToUid() + " 用户没有登录！");

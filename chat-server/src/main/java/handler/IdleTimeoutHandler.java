@@ -3,12 +3,12 @@ package handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleStateEvent;
-import model.chat.ChatMsg;
 import model.chat.MsgType;
+import model.chat.RpcMsg;
 import utils.ChatMsgUtil;
 import utils.MsgProcessor;
 
-public class IdleTimeoutHandler extends SimpleChannelInboundHandler<ChatMsg> {
+public class IdleTimeoutHandler extends SimpleChannelInboundHandler<RpcMsg.Msg> {
 
     private MsgProcessor msgProcessor = new MsgProcessor();
 
@@ -31,17 +31,17 @@ public class IdleTimeoutHandler extends SimpleChannelInboundHandler<ChatMsg> {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, ChatMsg chatMsg) throws Exception {
-        if (chatMsg.getMsgType() != MsgType.MSGTYPE_PING) {
-            ctx.fireChannelRead(chatMsg);
+    protected void channelRead0(ChannelHandlerContext ctx, RpcMsg.Msg msg) throws Exception {
+        if (msg.getMsgType() != MsgType.MSGTYPE_PING) {
+            ctx.fireChannelRead(msg);
             return;
         }
-        if (chatMsg.getMsgType() == MsgType.MSGTYPE_PING) {
+        if (msg.getMsgType() == MsgType.MSGTYPE_PING) {
             // 回复pong消息
-            if(chatMsg.getFromUid() == null || chatMsg.getFromUid() == 0){
+            if(msg.getFromUid() == 0){
                 System.out.println("ping消息格式错误");
             }
-            ctx.pipeline().channel().writeAndFlush(ChatMsgUtil.buildPongMsg(chatMsg.getFromUid()));
+            ctx.pipeline().channel().writeAndFlush(ChatMsgUtil.buildPongMsg(msg.getFromUid()));
         }
 
     }

@@ -1,9 +1,7 @@
 package utils;
 
-import model.chat.ChatMsg;
-import model.chat.ChatType;
-import model.chat.MsgFormat;
-import model.chat.MsgType;
+import com.alibaba.fastjson.JSON;
+import model.chat.*;
 
 import java.util.*;
 
@@ -17,13 +15,15 @@ public class ChatMsgUtil {
      * @param uid
      * @return
      */
-    public static ChatMsg builLoginMsg(Long uid) {
-        ChatMsg chatMsg = new ChatMsg();
-        chatMsg.setMsgId(UUID.randomUUID().toString());
-        chatMsg.setTimestamp(System.currentTimeMillis());
-        chatMsg.setMsgType(MsgType.MSGTYPE_LOGIN);
-        chatMsg.setFromUid(uid);
-        return chatMsg;
+    public static RpcMsg.Msg builLoginMsg(Long uid) {
+        RpcMsg.Msg msg = RpcMsg.Msg.newBuilder()
+                .setMsgId(UUID.randomUUID().toString())
+                .setTimestamp(System.currentTimeMillis())
+                .setMsgType(MsgType.MSGTYPE_LOGIN)
+                .setFromUid(uid)
+                .build();
+        return msg;
+
     }
 
     /**
@@ -31,25 +31,26 @@ public class ChatMsgUtil {
      *
      * @return
      */
-    public static ChatMsg buildSingleChatMsg(Long fromUid, Long toUid,String text) {
-        ChatMsg chatMsg = new ChatMsg();
-        chatMsg.setFromUid(fromUid);
-        chatMsg.setToUid(toUid);
-        chatMsg.setMsgType(MsgType.MSGTYPE_CHAT);
-        chatMsg.setMsgId(UUID.randomUUID().toString());
-        chatMsg.setTimestamp(System.currentTimeMillis());
-        chatMsg.setFormat(MsgFormat.FORMAT_TXT);
-        chatMsg.setChatType(ChatType.SINGLE);
+    public static RpcMsg.Msg buildSingleChatMsg(Long fromUid, Long toUid,String text) {
         Map<String, Object> body = new HashMap<>();
         body.put("text", text);
-        chatMsg.setBody(body);
-        return chatMsg;
+        RpcMsg.Msg msg = RpcMsg.Msg.newBuilder()
+                .setFromUid(fromUid)
+                .setToUid(toUid)
+                .setMsgType(MsgType.MSGTYPE_CHAT)
+                .setMsgId(UUID.randomUUID().toString())
+                .setTimestamp(System.currentTimeMillis())
+                .setFormat(MsgFormat.FORMAT_TXT)
+                .setChatType(ChatType.SINGLE)
+                .setBody(JSON.toJSONString(body))
+                .build();
+
+        return msg;
     }
 
-    public static ChatMsg buildGroupChatMsg(Long fromUid, List<String> toUids, String text){
+    public static RpcMsg.Msg buildGroupChatMsg(Long fromUid, List<String> toUids, String text){
         ChatMsg chatMsg = new ChatMsg();
         chatMsg.setFromUid(fromUid);
-   //     chatMsg.setToUid(toUid);
         chatMsg.setMsgType(MsgType.MSGTYPE_CHAT);
         chatMsg.setMsgId(UUID.randomUUID().toString());
         chatMsg.setTimestamp(System.currentTimeMillis());
@@ -65,7 +66,48 @@ public class ChatMsgUtil {
             }
             chatMsg.setToUidList(toUidList);
         }
+        return chatMsg2RpcMsg(chatMsg);
+    }
+
+    public static RpcMsg.Msg chatMsg2RpcMsg(ChatMsg chatMsg) {
+        RpcMsg.Msg msg = RpcMsg.Msg.newBuilder()
+                .setMsgId(chatMsg.getMsgId())
+                .setMsgType(chatMsg.getMsgType())
+                .setChatType(chatMsg.getChatType())
+                .setFormat(chatMsg.getFormat())
+                .setFromUid(chatMsg.getFromUid())
+                .setToUid(chatMsg.getToUid())
+                .setTimestamp(chatMsg.getTimestamp())
+                .setBody(JSON.toJSONString(chatMsg.getBody()))
+                .addAllToUidList(chatMsg.getToUidList()).build();
+        return msg;
+    }
+
+    public static ChatMsg rpcMsg2ChatMsg(RpcMsg.Msg msg){
+        ChatMsg chatMsg= new ChatMsg();
+        chatMsg.setMsgId(msg.getMsgId());
+        chatMsg.setMsgType(msg.getMsgType());
+        chatMsg.setChatType(msg.getChatType());
+        chatMsg.setFormat(msg.getFormat());
+        chatMsg.setFromUid(msg.getFromUid());
+        chatMsg.setToUid(msg.getToUid());
+        chatMsg.setTimestamp(msg.getTimestamp());
+        chatMsg.setBody(JSON.parseObject(msg.getBody(),Map.class));
+        chatMsg.setToUidList(msg.getToUidListList());
         return chatMsg;
+    }
+    /**
+     * 构建私PING消息
+     *
+     * @return
+     */
+    public static RpcMsg.Msg buildPingMsg(Long fromUid) {
+        RpcMsg.Msg msg = RpcMsg.Msg.newBuilder()
+                .setMsgType(MsgType.MSGTYPE_PING)
+                .setMsgId(UUID.randomUUID().toString())
+                .setTimestamp(System.currentTimeMillis())
+                .setFromUid(fromUid).build();
+        return msg;
     }
 
     /**
@@ -73,28 +115,14 @@ public class ChatMsgUtil {
      *
      * @return
      */
-    public static ChatMsg buildPingMsg(Long fromUid) {
-        ChatMsg chatMsg = new ChatMsg();
+    public static RpcMsg.Msg buildPongMsg(Long toUid) {
+        RpcMsg.Msg msg = RpcMsg.Msg.newBuilder()
+                .setMsgType(MsgType.MSGTYPE_PONG)
+                .setToUid(toUid)
+                .setTimestamp(System.currentTimeMillis())
+                .setMsgId(UUID.randomUUID().toString())
+                .build();
 
-        chatMsg.setMsgType(MsgType.MSGTYPE_PING);
-        chatMsg.setMsgId(UUID.randomUUID().toString());
-        chatMsg.setTimestamp(System.currentTimeMillis());
-        chatMsg.setFromUid(fromUid);
-        return chatMsg;
-    }
-
-    /**
-     * 构建私PING消息
-     *
-     * @return
-     */
-    public static ChatMsg buildPongMsg(Long toUid) {
-        ChatMsg chatMsg = new ChatMsg();
-
-        chatMsg.setMsgType(MsgType.MSGTYPE_PONG);
-        chatMsg.setMsgId(UUID.randomUUID().toString());
-        chatMsg.setTimestamp(System.currentTimeMillis());
-        chatMsg.setToUid(toUid);
-        return chatMsg;
+        return msg;
     }
 }

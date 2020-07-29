@@ -10,27 +10,27 @@ public class ChatMsg {
     /**
      * 消息发送方uid
      */
-    private Long fromUid;
+    private long fromUid;
     /**
      * 消息接收方uid
      */
-    private Long toUid;
+    private long toUid;
     /**
      * 消息格式
      */
-    private Integer format;
+    private int format;
     /**
      * 消息类型
      */
-    private Integer msgType;
+    private int msgType;
     /**
      * 聊天类型
      */
-    private Integer chatType;
+    private int chatType;
     /**
      * 时间戳
      */
-    private Long timestamp;
+    private long timestamp;
     /**
      * 消息内容
      */
@@ -49,43 +49,51 @@ public class ChatMsg {
         this.msgId = msgId;
     }
 
-    public Long getFromUid() {
+    public long getFromUid() {
         return fromUid;
     }
 
-    public void setFromUid(Long fromUid) {
+    public void setFromUid(long fromUid) {
         this.fromUid = fromUid;
     }
 
-    public Long getToUid() {
+    public long getToUid() {
         return toUid;
     }
 
-    public void setToUid(Long toUid) {
+    public void setToUid(long toUid) {
         this.toUid = toUid;
     }
 
-    public Integer getFormat() {
+    public int getFormat() {
         return format;
     }
 
-    public void setFormat(Integer format) {
+    public void setFormat(int format) {
         this.format = format;
     }
 
-    public Integer getMsgType() {
+    public int getMsgType() {
         return msgType;
     }
 
-    public void setMsgType(Integer msgType) {
+    public void setMsgType(int msgType) {
         this.msgType = msgType;
     }
 
-    public Long getTimestamp() {
+    public int getChatType() {
+        return chatType;
+    }
+
+    public void setChatType(int chatType) {
+        this.chatType = chatType;
+    }
+
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -97,13 +105,6 @@ public class ChatMsg {
         this.body = body;
     }
 
-    public Integer getChatType() {
-        return chatType;
-    }
-
-    public void setChatType(Integer chatType) {
-        this.chatType = chatType;
-    }
 
     public Set<Long> getToUidList() {
         return toUidList;
