@@ -109,7 +109,7 @@ public class MsgProcessor {
                 jedis = RedisUtil.getJedis();
                 jedis.del(RedisKey.sessionStore(user.getUid()));
             } catch (Exception e) {
-
+                e.printStackTrace();
             } finally {
                 if (jedis != null) {
                     jedis.close();

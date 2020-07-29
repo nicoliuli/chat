@@ -1,5 +1,6 @@
 package client;
 
+import constans.RedisKey;
 import handler.ClientBisHandler;
 import handler.ClientPongHandler;
 import io.netty.bootstrap.Bootstrap;
@@ -17,7 +18,9 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import model.chat.RpcMsg;
+import redis.clients.jedis.Jedis;
 import utils.ChannelUtil;
+import utils.RedisUtil;
 import utils.ScannerUtil;
 
 public class NettyClient {
@@ -54,6 +57,18 @@ public class NettyClient {
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     System.out.println("client close");
+                    // 这里应该清除，redis里的会话
+                    Jedis jedis = null;
+                    try{
+                        jedis = RedisUtil.getJedis();
+                        jedis.del(RedisKey.sessionStore(uid));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        if(jedis !=null){
+                            jedis.close();
+                        }
+                    }
                 }
             });
 
