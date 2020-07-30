@@ -71,4 +71,15 @@ public class ZkUtil {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 删除server注册的节点
+     */
+    public static void delRegistryInfo(){
+        try {
+            zk.delete(ZK_PATH + BIZ_PATH + "/" + NodeUtil.thisNode(),0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -30,25 +30,27 @@ public class ZkUtil {
     /**
      * 随机获取server连接
      */
-    public static String [] getRandomServer() throws Exception {
+    public static String[] getRandomServer() throws Exception {
 
         List<String> childrens = zk.getChildren(ZK_PATH + BIZ_PATH, false);
-        if(CollectionUtil.isEmpty(childrens)){
+        if (CollectionUtil.isEmpty(childrens)) {
             throw new Exception("获取NettyServer信息失败");
         }
         int size = childrens.size();
         // 随机获取server连接，后期可扩展负载均衡算法
         String child = childrens.get(new Random().nextInt(size));
-        System.out.println("get server is : "+child);
+        System.out.println("get server is : " + child);
         //ip:port格式
         return child.split(":");
 
     }
 
-    public static void disConnection(){
-        if(zk !=null){
+    public static void disConnection() {
+        if (zk != null) {
             try {
                 zk.close();
+                zk = null;
+                System.out.println("close zk ok");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

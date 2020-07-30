@@ -49,10 +49,9 @@ public class ChatServerApplication {
         // 删除本机redis会话
         ServerSessionMap.cleanSessionStoreMap();
         // 删除注册在zk的节点
-
+        ZkUtil.delRegistryInfo();
         // 关闭redis连接
         RedisUtil.disConnection();
-
         // 关闭zk连接
         ZkUtil.disConnection();
     }

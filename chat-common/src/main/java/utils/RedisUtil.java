@@ -1,5 +1,6 @@
 package utils;
 
+import constans.RedisKey;
 import properties.CommonPropertiesFile;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -43,6 +44,29 @@ public class RedisUtil {
             pool = null;
         }
         System.out.println("close redis ok");
+    }
+
+
+    /**
+     * 清除在redis的会话
+     * @param host
+     * @param port
+     * @param uid
+     */
+    public static void cleanSession(String host,Integer port,Long uid){
+        // 这里应该清除，redis里的会话
+        Jedis jedis = null;
+        try {
+            jedis = RedisUtil.getJedis();
+            jedis.hdel(RedisKey.getSessionStoreMapKey(host, port), uid + "");
+            System.out.println("cleanSession ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
     }
 
 }

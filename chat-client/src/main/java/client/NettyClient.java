@@ -1,6 +1,5 @@
 package client;
 
-import constans.RedisKey;
 import handler.ClientBisHandler;
 import handler.ClientPongHandler;
 import io.netty.bootstrap.Bootstrap;
@@ -18,12 +17,11 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import model.chat.RpcMsg;
-import properties.CommonPropertiesFile;
 import properties.PropertiesMap;
-import redis.clients.jedis.Jedis;
 import utils.ChannelUtil;
 import utils.RedisUtil;
 import utils.ScannerUtil;
+import utils.ZkUtil;
 
 public class NettyClient {
     /**
@@ -53,31 +51,34 @@ public class NettyClient {
             });
             ChannelUtil.sengLoginMsg(f.channel(), this.uid);
             ChannelUtil.startSendPingMsgSchedule(f.channel(), this.uid);
-            ScannerUtil.scanner(f.channel(), uid);
+            ScannerUtil.scanner(f.channel(), this.uid);
 
             f.channel().closeFuture().sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     System.out.println("client close");
-                    // 这里应该清除，redis里的会话
-                    Jedis jedis = null;
-                    try {
-                        jedis = RedisUtil.getJedis();
-                        jedis.hdel(RedisKey.getSessionStoreMapKey(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))), uid + "");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (jedis != null) {
-                            jedis.close();
-                        }
-                    }
+                    RedisUtil.cleanSession(host, Integer.parseInt(PropertiesMap.getProperties("port")),uid);
                 }
             });
 
         } finally {
             group.shutdownGracefully();
         }
+
+    //    reConnect();
         System.exit(-1);
+    }
+
+    private void reConnect(){
+        try{
+            String[] server = ZkUtil.getRandomServer();
+            connect(server[0], Integer.parseInt(server[1]));
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+
+        }
+
     }
 
     private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
@@ -85,17 +86,11 @@ public class NettyClient {
         protected void initChannel(SocketChannel ch) throws Exception {
 
             //in解码
-            /*ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
-            ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
-            ch.pipeline().addLast(new Json2MsgDecoder());*/
             ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
             ch.pipeline().addLast(new ProtobufDecoder(RpcMsg.Msg.getDefaultInstance()));
             ch.pipeline().addLast(new ClientPongHandler());
             ch.pipeline().addLast(new ClientBisHandler());
             //out编码
-            /*ch.pipeline().addLast(new LengthFieldPrepender(4));
-            ch.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
-            ch.pipeline().addLast(new Msg2JsonEncoder());*/
             ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
             ch.pipeline().addLast(new ProtobufEncoder());
         }
