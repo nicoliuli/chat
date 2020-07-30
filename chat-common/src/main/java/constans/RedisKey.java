@@ -3,6 +3,7 @@ package constans;
 public class RedisKey {
     /**
      * 存储user信息
+     *
      * @return
      */
     public static String userMapKey() {
@@ -10,13 +11,15 @@ public class RedisKey {
     }
 
 
+
     /**
-     * 存储会话，用户登录的主机信息
+     * 群处当前集群的用户会话
      *
-     * @param uid
+     * @param host
+     * @param port
      * @return
      */
-    public static String sessionStore(Long uid) {
-        return "chat:user:session:" + uid;
+    public static String getSessionStoreMapKey(String host, Integer port) {
+        return "chat:user:session:" + host + ":" + port + ":";
     }
 }

@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import constans.RedisKey;
 import io.netty.util.internal.StringUtil;
 import model.chat.RpcMsg;
+import properties.CommonPropertiesFile;
+import properties.PropertiesMap;
 import redis.clients.jedis.Jedis;
 import session.ServerSession;
 import session.ServerSessionMap;
@@ -24,7 +26,7 @@ public class SendMsgUtil {
         try {
             jedis = RedisUtil.getJedis();
             // 获取会话 格式  ip:port
-            String sessionStr = jedis.get(RedisKey.sessionStore(toUid));
+            String sessionStr = jedis.hget(RedisKey.getSessionStoreMapKey(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))), toUid + "");
             if (StringUtil.isNullOrEmpty(sessionStr)) {
                 System.out.println("uid=" + toUid + "的用户没有登录");
                 return;
@@ -32,7 +34,7 @@ public class SendMsgUtil {
             String[] hostPort = sessionStr.split(":");
             // 发给对应节点的所监听的队列
             String jsonMsg = JSON.toJSONString(ChatMsgUtil.rpcMsg2ChatMsg(msg));
-            System.out.println("序列化后的jsonMsg="+jsonMsg);
+            System.out.println("序列化后的jsonMsg=" + jsonMsg);
             jedis.lpush(NodeUtil.node(hostPort[0], Integer.parseInt(hostPort[1])), jsonMsg);
             System.out.println("消息发向" + hostPort[0] + ":" + hostPort[1] + "节点");
         } catch (Exception e) {

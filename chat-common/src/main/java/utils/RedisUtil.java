@@ -30,13 +30,19 @@ public class RedisUtil {
             throw new Exception("get Jedis fail");
         }
         return pool.getResource();
-
     }
 
     public static void disConnection() {
         if (jedis != null) {
+            jedis.close();
             jedis.disconnect();
+            jedis = null;
         }
+        if(pool != null){
+            pool.close();
+            pool = null;
+        }
+        System.out.println("close redis ok");
     }
 
 }

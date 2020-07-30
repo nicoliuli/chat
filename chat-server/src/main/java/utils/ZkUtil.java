@@ -46,6 +46,8 @@ public class ZkUtil {
         if (zk != null) {
             try {
                 zk.close();
+                System.out.println("close zk ok");
+                return;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
