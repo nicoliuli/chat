@@ -30,6 +30,7 @@ public class ChatClientApplication {
     }
 
     public static void shutduwn() {
+        System.out.println("回调钩子");
         RedisUtil.cleanSession(server[0], Integer.parseInt(server[1]),uid);
         RedisUtil.disConnection();
         ZkUtil.disConnection();

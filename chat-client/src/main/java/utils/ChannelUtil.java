@@ -1,6 +1,8 @@
 package utils;
 
+import constans.RedisKey;
 import io.netty.channel.Channel;
+import redis.clients.jedis.Jedis;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +27,20 @@ public class ChannelUtil {
                 channel.writeAndFlush(ChatMsgUtil.buildPingMsg(fromUid));
             }
         },1,1, TimeUnit.SECONDS);
+    }
+
+    public static void clearSessionStore(Long uid) {
+        Jedis jedis = null;
+        try {
+            jedis = RedisUtil.getJedis();
+            jedis.del(RedisKey.sessionStore(uid));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
     }
 
 }

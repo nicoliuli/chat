@@ -17,9 +17,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import model.chat.RpcMsg;
-import properties.PropertiesMap;
 import utils.ChannelUtil;
-import utils.RedisUtil;
 import utils.ScannerUtil;
 import utils.ZkUtil;
 
@@ -56,16 +54,15 @@ public class NettyClient {
             f.channel().closeFuture().sync().addListener(new GenericFutureListener<Future<? super Void>>() {
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
+                    // server宕机，或client关闭，会执行这个方法，清除redis会话
+                    ChannelUtil.clearSessionStore(uid);
                     System.out.println("client close");
-                    RedisUtil.cleanSession(host, Integer.parseInt(PropertiesMap.getProperties("port")),uid);
                 }
             });
 
         } finally {
             group.shutdownGracefully();
         }
-
-    //    reConnect();
         System.exit(-1);
     }
 

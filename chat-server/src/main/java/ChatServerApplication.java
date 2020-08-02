@@ -2,7 +2,6 @@ import dao.InitDao;
 import listener.ChatMsgConsumer;
 import properties.PropertiesMap;
 import server.NettyServer;
-import session.ServerSessionMap;
 import utils.RedisUtil;
 import utils.ZkUtil;
 
@@ -46,8 +45,6 @@ public class ChatServerApplication {
     }
 
     private static void shutdown() {
-        // 删除本机redis会话
-        ServerSessionMap.cleanSessionStoreMap();
         // 删除注册在zk的节点
         ZkUtil.delRegistryInfo();
         // 关闭redis连接

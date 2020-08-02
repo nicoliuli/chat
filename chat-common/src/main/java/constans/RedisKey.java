@@ -11,15 +11,12 @@ public class RedisKey {
     }
 
 
-
     /**
-     * 群处当前集群的用户会话
-     *
-     * @param host
-     * @param port
+     * 集群会话
+     * @param uid
      * @return
      */
-    public static String getSessionStoreMapKey(String host, Integer port) {
-        return "chat:user:session:" + host + ":" + port + ":";
+    public static String sessionStore(Long uid) {
+        return "chat:user:session:" + uid;
     }
 }

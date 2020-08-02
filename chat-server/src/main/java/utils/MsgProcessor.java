@@ -107,7 +107,7 @@ public class MsgProcessor {
             Jedis jedis = null;
             try {
                 jedis = RedisUtil.getJedis();
-                jedis.hdel(RedisKey.getSessionStoreMapKey(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))),user.getUid()+"");
+                jedis.del(RedisKey.sessionStore(user.getUid()));
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -130,10 +130,8 @@ public class MsgProcessor {
             ServerSession session = new ServerSession(u, channel).bind();
             ServerSessionMap.add(msg.getFromUid(), session);
 
-            //处理集群会话,uid->ip:port
-            jedis.hset(RedisKey.getSessionStoreMapKey(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))),
-                    msg.getFromUid() + "",
-                    NodeUtil.thisNode());
+            //处理集群会话,value=ip:port
+            jedis.set(RedisKey.sessionStore(msg.getFromUid()),NodeUtil.thisNode());
             // 暂时模拟向其他用户发消息，打通链路
         } catch (Exception e) {
             e.printStackTrace();

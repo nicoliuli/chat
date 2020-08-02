@@ -58,7 +58,7 @@ public class RedisUtil {
         Jedis jedis = null;
         try {
             jedis = RedisUtil.getJedis();
-            jedis.hdel(RedisKey.getSessionStoreMapKey(host, port), uid + "");
+            jedis.del(RedisKey.sessionStore(uid));
             System.out.println("cleanSession ok");
         } catch (Exception e) {
             e.printStackTrace();

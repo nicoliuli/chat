@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import constans.RedisKey;
 import io.netty.util.internal.StringUtil;
 import model.chat.RpcMsg;
-import properties.CommonPropertiesFile;
-import properties.PropertiesMap;
 import redis.clients.jedis.Jedis;
 import session.ServerSession;
 import session.ServerSessionMap;
@@ -26,7 +24,9 @@ public class SendMsgUtil {
         try {
             jedis = RedisUtil.getJedis();
             // 获取会话 格式  ip:port
-            String sessionStr = jedis.hget(RedisKey.getSessionStoreMapKey(CommonPropertiesFile.getHost(), Integer.parseInt(PropertiesMap.getProperties("port"))), toUid + "");
+            String key = RedisKey.sessionStore(toUid);
+            String sessionStr = jedis.get(key);
+            System.out.println("key="+key+":value="+sessionStr);
             if (StringUtil.isNullOrEmpty(sessionStr)) {
                 System.out.println("uid=" + toUid + "的用户没有登录");
                 return;
