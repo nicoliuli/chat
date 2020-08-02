@@ -2,7 +2,6 @@ package handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import model.chat.ChatMsg;
 import model.chat.RpcMsg;
 import utils.MsgProcessor;
 
@@ -16,7 +15,6 @@ public class ServerBisHandler extends SimpleChannelInboundHandler<RpcMsg.Msg> {
 
         // 删除本地会话和集群会话
         msgProcessor.channelInactive(ctx.channel());
-
         ctx.fireChannelInactive();
     }
 

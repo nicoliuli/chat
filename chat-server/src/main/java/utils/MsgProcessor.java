@@ -7,6 +7,7 @@ import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import io.netty.util.internal.StringUtil;
 import model.chat.ChatMsg;
 import model.chat.ChatType;
 import model.chat.MsgType;
@@ -35,7 +36,7 @@ public class MsgProcessor {
      */
     public void msgProcessor(Channel channel, RpcMsg.Msg msg) {
         validateChatMsg(msg);
-        if (msg.getMsgType() == MsgType.MSGTYPE_LOGIN) {
+        if (msg.getMsgType() == MsgType.MSGTYPE_LOGIN) { //登录消息
             processorLoginMsg(channel, msg);
         } else if (msg.getMsgType() == MsgType.MSGTYPE_CHAT) { // 聊天消息
             processorChatMsg(msg);
@@ -119,10 +120,14 @@ public class MsgProcessor {
     }
 
     private void processorLoginMsg(Channel channel, RpcMsg.Msg msg) {
+        // 如果重复登录，踢掉对端用户
+
         System.out.println("登录消息==> uid是 " + msg.getFromUid() + " 的用户登录了");
         Jedis jedis = null;
         try {
             jedis = RedisUtil.getJedis();
+            kickUser(jedis,msg.getFromUid(),channel);
+
             String userJson = jedis.hget(RedisKey.userMapKey(), msg.getFromUid() + "");
             User u = JSON.parseObject(userJson, User.class);
 
@@ -140,6 +145,23 @@ public class MsgProcessor {
                 jedis.close();
             }
         }
+    }
+
+    private void kickUser(Jedis jedis, Long uid, Channel channel) {
+        String sessionStr = jedis.get(RedisKey.sessionStore(uid));
+        // 当前用户没在其他终端登录
+        if (StringUtil.isNullOrEmpty(sessionStr)) {
+            return;
+        }
+        // 当前用户在其他终端登录，但是channel连接在本server上
+        if (sessionStr.equals(NodeUtil.thisNode())) {
+            SessionUtil.clearUserSession(jedis,uid);
+            return;
+        }
+
+        // 当前用户在其他终端登录，channel连接不在本server上，发送kick消息给其他server，踢掉当前用户
+        SendMsgUtil.sendMsg(ChatMsgUtil.buildKickMsg(uid));
+        return;
     }
 
     /**

@@ -28,4 +28,9 @@ public class MsgType {
      * 客户端给服务端发的pong消息
      */
     public static  Integer MSGTYPE_PONG = 5;
+
+    /**
+     * 多端登录，踢掉对方使下线
+     */
+    public static Integer MSGTYPE_KICK = 6;
 }

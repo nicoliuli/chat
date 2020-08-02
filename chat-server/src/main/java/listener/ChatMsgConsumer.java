@@ -1,7 +1,10 @@
 package listener;
 
 import com.alibaba.fastjson.JSON;
+import constans.RedisKey;
+import io.netty.channel.Channel;
 import model.chat.ChatMsg;
+import model.chat.MsgType;
 import properties.CommonPropertiesFile;
 import properties.PropertiesMap;
 import redis.clients.jedis.Jedis;
@@ -38,7 +41,7 @@ public class ChatMsgConsumer {
                     System.out.println("来自其他集群的消息：" + msgString);
                     ChatMsg chatMsg = JSON.parseObject(msgString, ChatMsg.class);
                     if (checkUserLogin(chatMsg)) {
-                        SendMsgUtil.sendMsg(ChatMsgUtil.chatMsg2RpcMsg(chatMsg));
+                        msgDisptcher(chatMsg, jedis);
                         continue;
                     }
                     System.out.println(chatMsg.getToUid() + " 用户没有登录！");
@@ -50,6 +53,21 @@ public class ChatMsgConsumer {
             }
 
         }
+    }
+
+    /**
+     * 消息分发
+     *
+     * @param chatMsg
+     * @param jedis
+     */
+    private void msgDisptcher(ChatMsg chatMsg, Jedis jedis) {
+        if (chatMsg.getMsgType() == MsgType.MSGTYPE_KICK) { // 踢人消息
+            long toUid = chatMsg.getToUid();
+           SessionUtil.clearUserSession(jedis,toUid);
+            return;
+        }
+        SendMsgUtil.sendMsg(ChatMsgUtil.chatMsg2RpcMsg(chatMsg));
     }
 
 

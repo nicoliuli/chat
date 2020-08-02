@@ -125,4 +125,20 @@ public class ChatMsgUtil {
 
         return msg;
     }
+
+    /**
+     * 构建登录踢人消息
+     *
+     * @param uid
+     * @return
+     */
+    public static RpcMsg.Msg buildKickMsg(Long uid){
+        RpcMsg.Msg msg = RpcMsg.Msg.newBuilder()
+                .setToUid(uid)
+                .setTimestamp(System.currentTimeMillis())
+                .setMsgType(MsgType.MSGTYPE_KICK)
+                .setMsgId(UUID.randomUUID().toString())
+                .build();
+        return msg;
+    }
 }
