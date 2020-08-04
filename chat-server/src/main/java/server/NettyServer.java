@@ -38,8 +38,9 @@ public class NettyServer {
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if (future.isSuccess()) {
-                        System.out.println("server启动成功了");
-                        ZkUtil.registerNettyServerNode(Inet4Address.getLocalHost().getHostAddress(), Integer.parseInt(PropertiesMap.getProperties("port")));
+                        final String ip = Inet4Address.getLocalHost().getHostAddress();
+                        System.out.println("server启动成功了 "+ip+":"+port);
+                        ZkUtil.registerNettyServerNode(ip, Integer.parseInt(PropertiesMap.getProperties("port")));
                     }
                 }
             });

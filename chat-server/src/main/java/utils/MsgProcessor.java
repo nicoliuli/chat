@@ -40,6 +40,8 @@ public class MsgProcessor {
             processorLoginMsg(channel, msg);
         } else if (msg.getMsgType() == MsgType.MSGTYPE_CHAT) { // 聊天消息
             processorChatMsg(msg);
+        } else if(msg.getMsgType() == MsgType.MSGTYPE_KICK){
+            processorKictMsg(msg);
         }
     }
 
@@ -126,7 +128,7 @@ public class MsgProcessor {
         Jedis jedis = null;
         try {
             jedis = RedisUtil.getJedis();
-            kickUser(jedis,msg.getFromUid(),channel);
+       //     kickUser(jedis,msg.getFromUid(),channel);
 
             String userJson = jedis.hget(RedisKey.userMapKey(), msg.getFromUid() + "");
             User u = JSON.parseObject(userJson, User.class);
@@ -151,14 +153,16 @@ public class MsgProcessor {
         String sessionStr = jedis.get(RedisKey.sessionStore(uid));
         // 当前用户没在其他终端登录
         if (StringUtil.isNullOrEmpty(sessionStr)) {
+            System.out.println("用户没在其他终端登录");
             return;
         }
         // 当前用户在其他终端登录，但是channel连接在本server上
         if (sessionStr.equals(NodeUtil.thisNode())) {
+            System.out.println("用户终端登录，会话在本地");
             SessionUtil.clearUserSession(jedis,uid);
             return;
         }
-
+        System.out.println("用户终端登录，会话在远端");
         // 当前用户在其他终端登录，channel连接不在本server上，发送kick消息给其他server，踢掉当前用户
         SendMsgUtil.sendMsg(ChatMsgUtil.buildKickMsg(uid));
         return;
@@ -185,6 +189,17 @@ public class MsgProcessor {
                 System.out.println("toUidList is empty");
             }
         }
+    }
+
+    /**
+     * 处理踢人消息
+     * @param msg
+     */
+    private void processorKictMsg(RpcMsg.Msg msg){
+        long toUid = msg.getToUid();
+        System.out.println("收到踢人消息，toUid="+toUid);
+
+        return;
     }
 
 }
