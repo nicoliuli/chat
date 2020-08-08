@@ -58,6 +58,8 @@ public class ChatServerApplication {
     }
 
     private static void shutdown() {
+        // TODO: 2020/8/8 遍历SessionMap，删除redis的链接
+
         // 删除注册在zk的节点
         zkUtil.delRegistryInfo();
         // 关闭redis连接
