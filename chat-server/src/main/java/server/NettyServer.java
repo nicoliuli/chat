@@ -23,6 +23,10 @@ import java.util.concurrent.TimeUnit;
 
 public class NettyServer {
     public static Channel channel = null;
+    private ZkUtil zkUtil;
+    public NettyServer(ZkUtil zkUtil){
+        this.zkUtil = zkUtil;
+    }
 
     public void bind(int port) {
 
@@ -40,7 +44,7 @@ public class NettyServer {
                     if (future.isSuccess()) {
                         final String ip = Inet4Address.getLocalHost().getHostAddress();
                         System.out.println("server启动成功了 "+ip+":"+port);
-                        ZkUtil.registerNettyServerNode(ip, Integer.parseInt(PropertiesMap.getProperties("port")));
+                        zkUtil.registerNettyServerNode(ip, Integer.parseInt(PropertiesMap.getProperties("port")));
                     }
                 }
             });

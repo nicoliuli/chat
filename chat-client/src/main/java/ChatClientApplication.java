@@ -1,7 +1,7 @@
 import client.NettyClient;
 import properties.PropertiesMap;
 import service.LoginService;
-import utils.RedisUtil;
+import utils.RedisFactory;
 import utils.ZkUtil;
 
 public class ChatClientApplication {
@@ -18,12 +18,12 @@ public class ChatClientApplication {
             PropertiesMap.loadProperties();
             // 连接zk
             ZkUtil.connection();
-            RedisUtil.connection();
+            RedisFactory.connection();
 
             // 获取NettyServer连接信息
             server = ZkUtil.getRandomServer();
             uid = LoginService.login();
-            new NettyClient(uid).connect(server[0], Integer.parseInt(server[1]));
+            new NettyClient(uid).connect(server[0],Integer.parseInt(server[1]));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,8 +31,8 @@ public class ChatClientApplication {
 
     public static void shutduwn() {
         System.out.println("回调钩子");
-        RedisUtil.cleanSession(server[0], Integer.parseInt(server[1]),uid);
-        RedisUtil.disConnection();
+        RedisFactory.cleanSession(uid);
+        RedisFactory.disConnection();
         ZkUtil.disConnection();
 
     }

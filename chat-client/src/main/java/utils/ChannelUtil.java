@@ -32,7 +32,7 @@ public class ChannelUtil {
     public static void clearSessionStore(Long uid) {
         Jedis jedis = null;
         try {
-            jedis = RedisUtil.getJedis();
+            jedis = RedisFactory.getJedis();
             jedis.del(RedisKey.sessionStore(uid));
         } catch (Exception e) {
             e.printStackTrace();

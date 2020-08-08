@@ -3,7 +3,7 @@ package service;
 import constans.RedisKey;
 import io.netty.util.internal.StringUtil;
 import redis.clients.jedis.Jedis;
-import utils.RedisUtil;
+import utils.RedisFactory;
 
 import java.util.Scanner;
 
@@ -34,7 +34,7 @@ public class LoginService {
         }
         Jedis jedis = null;
         try {
-            jedis = RedisUtil.getJedis();
+            jedis = RedisFactory.getJedis();
             String user = jedis.hget(RedisKey.userMapKey(), id);
             if (StringUtil.isNullOrEmpty(user)) {
                 return -1L;

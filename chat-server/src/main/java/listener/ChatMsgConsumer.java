@@ -1,8 +1,6 @@
 package listener;
 
 import com.alibaba.fastjson.JSON;
-import constans.RedisKey;
-import io.netty.channel.Channel;
 import model.chat.ChatMsg;
 import model.chat.MsgType;
 import properties.CommonPropertiesFile;
@@ -29,7 +27,7 @@ public class ChatMsgConsumer {
         while (true) {
             Jedis jedis = null;
             try {
-                jedis = RedisUtil.getJedis();
+                jedis = RedisFactory.getJedis();
                 List<String> msg = jedis.brpop(Integer.MAX_VALUE, NodeUtil.node(CommonPropertiesFile.host, Integer.parseInt(PropertiesMap.getProperties("port"))), NodeUtil.node(CommonPropertiesFile.host, Integer.parseInt(PropertiesMap.getProperties("port"))));
                 if (CollectionUtil.isEmpty(msg)) {
                     System.out.println("消费的消息为空");
@@ -64,7 +62,7 @@ public class ChatMsgConsumer {
     private void msgDisptcher(ChatMsg chatMsg, Jedis jedis) {
         if (chatMsg.getMsgType() == MsgType.MSGTYPE_KICK) { // 踢人消息
             long toUid = chatMsg.getToUid();
-           SessionUtil.clearUserSession(jedis,toUid);
+           SessionUtil.clearUserSessionAndCloseChannel(jedis,toUid);
             return;
         }
         SendMsgUtil.sendMsg(ChatMsgUtil.chatMsg2RpcMsg(chatMsg));

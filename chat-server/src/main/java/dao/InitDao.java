@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import constans.RedisKey;
 import model.domain.User;
 import redis.clients.jedis.Jedis;
-import utils.RedisUtil;
+import utils.RedisFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class InitDao {
         }
         Jedis jedis = null;
         try {
-            jedis = RedisUtil.getJedis();
+            jedis = RedisFactory.getJedis();
             if(!jedis.exists(RedisKey.userMapKey())){
                 jedis.hset(RedisKey.userMapKey(), userMap);
                 jedis.expire(RedisKey.userMapKey(),3600);

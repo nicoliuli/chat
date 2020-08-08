@@ -2,34 +2,47 @@ import dao.InitDao;
 import listener.ChatMsgConsumer;
 import properties.PropertiesMap;
 import server.NettyServer;
-import utils.RedisUtil;
+import utils.RedisFactory;
 import utils.ZkUtil;
 
 public class ChatServerApplication {
 
+    private static ZkUtil zkUtil = null;
+
     public static void main(String[] args) throws Exception {
+        init();
         startup();
+    }
+
+    private static void init() {
+        try {
+            zkUtil = new ZkUtil();
+            // 加载配置文件
+            PropertiesMap.loadProperties();
+            // 连接zk
+            zkUtil.connection();
+            // 连接redis
+            RedisFactory.connection();
+            // 开启队列监听
+            ChatMsgConsumer consumer = new ChatMsgConsumer();
+            consumer.start();
+            // 初始化数据
+            InitDao.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
     }
 
     public static void startup() {
         try {
             // 添加钩子
             shutdownHook();
-            // 加载配置文件
-            PropertiesMap.loadProperties();
-            // 连接zk
-            ZkUtil.connection();
-            // 连接redis
-            RedisUtil.connection();
-            // 开启队列监听
-            ChatMsgConsumer consumer = new ChatMsgConsumer();
-            consumer.start();
-            // 初始化数据
-            InitDao.init();
-            new NettyServer().bind(Integer.parseInt(PropertiesMap.getProperties("port")));
+            new NettyServer(zkUtil).bind(Integer.parseInt(PropertiesMap.getProperties("port")));
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
 
         }
     }
@@ -46,10 +59,10 @@ public class ChatServerApplication {
 
     private static void shutdown() {
         // 删除注册在zk的节点
-        ZkUtil.delRegistryInfo();
+        zkUtil.delRegistryInfo();
         // 关闭redis连接
-        RedisUtil.disConnection();
+        RedisFactory.disConnection();
         // 关闭zk连接
-        ZkUtil.disConnection();
+        zkUtil.disConnection();
     }
 }

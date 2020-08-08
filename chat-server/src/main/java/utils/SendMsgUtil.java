@@ -22,7 +22,7 @@ public class SendMsgUtil {
         // 判断用户是否在其他节点上
         Jedis jedis = null;
         try {
-            jedis = RedisUtil.getJedis();
+            jedis = RedisFactory.getJedis();
             // 获取会话 格式  ip:port
             String key = RedisKey.sessionStore(toUid);
             String sessionStr = jedis.get(key);

@@ -16,7 +16,7 @@ public class ZkUtil {
     /**
      * 连接zk，并创建相应的节点
      */
-    public static void connection() throws Exception {
+    public void connection() throws Exception {
 
         zk = new ZooKeeper(CommonPropertiesFile.ZK_HOST, 10000, new Watcher() {
             // 监控所有被触发的事件
@@ -42,7 +42,7 @@ public class ZkUtil {
     /**
      * 关闭zk连接
      */
-    public static void disConnection() {
+    public void disConnection() {
         if (zk != null) {
             try {
                 zk.close();
@@ -61,7 +61,7 @@ public class ZkUtil {
      * @param host
      * @param port
      */
-    public static void registerNettyServerNode(String host, Integer port) {
+    public void registerNettyServerNode(String host, Integer port) {
         String node = NodeUtil.node(host,port);
         try {
             zk.create(ZK_PATH + BIZ_PATH + "/" + node, node.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
@@ -75,7 +75,7 @@ public class ZkUtil {
     /**
      * 删除server注册的节点
      */
-    public static void delRegistryInfo(){
+    public void delRegistryInfo(){
         try {
             zk.delete(ZK_PATH + BIZ_PATH + "/" + NodeUtil.thisNode(),0);
         } catch (Exception e) {

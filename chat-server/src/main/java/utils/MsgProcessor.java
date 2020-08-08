@@ -8,19 +8,15 @@ import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import io.netty.util.internal.StringUtil;
-import model.chat.ChatMsg;
 import model.chat.ChatType;
 import model.chat.MsgType;
 import model.chat.RpcMsg;
 import model.domain.User;
-import properties.CommonPropertiesFile;
-import properties.PropertiesMap;
 import redis.clients.jedis.Jedis;
 import session.ServerSession;
 import session.ServerSessionMap;
 
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -109,7 +105,7 @@ public class MsgProcessor {
             // 删除集群redis的会话
             Jedis jedis = null;
             try {
-                jedis = RedisUtil.getJedis();
+                jedis = RedisFactory.getJedis();
                 jedis.del(RedisKey.sessionStore(user.getUid()));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -123,12 +119,11 @@ public class MsgProcessor {
 
     private void processorLoginMsg(Channel channel, RpcMsg.Msg msg) {
         // 如果重复登录，踢掉对端用户
-
         System.out.println("登录消息==> uid是 " + msg.getFromUid() + " 的用户登录了");
         Jedis jedis = null;
         try {
-            jedis = RedisUtil.getJedis();
-       //     kickUser(jedis,msg.getFromUid(),channel);
+            jedis = RedisFactory.getJedis();
+            kickUser(jedis,msg.getFromUid(),channel);
 
             String userJson = jedis.hget(RedisKey.userMapKey(), msg.getFromUid() + "");
             User u = JSON.parseObject(userJson, User.class);
@@ -149,9 +144,15 @@ public class MsgProcessor {
         }
     }
 
+    /**
+     * 踢掉相同账号登录的人
+     * @param jedis
+     * @param uid
+     * @param channel
+     */
     private void kickUser(Jedis jedis, Long uid, Channel channel) {
         String sessionStr = jedis.get(RedisKey.sessionStore(uid));
-        // 当前用户没在其他终端登录
+        //  当前用户没在其他终端登录
         if (StringUtil.isNullOrEmpty(sessionStr)) {
             System.out.println("用户没在其他终端登录");
             return;
@@ -159,7 +160,7 @@ public class MsgProcessor {
         // 当前用户在其他终端登录，但是channel连接在本server上
         if (sessionStr.equals(NodeUtil.thisNode())) {
             System.out.println("用户终端登录，会话在本地");
-            SessionUtil.clearUserSession(jedis,uid);
+            SessionUtil.clearUserSessionAndCloseChannel(jedis,uid);
             return;
         }
         System.out.println("用户终端登录，会话在远端");
@@ -195,10 +196,21 @@ public class MsgProcessor {
      * 处理踢人消息
      * @param msg
      */
-    private void processorKictMsg(RpcMsg.Msg msg){
+    private void processorKictMsg(RpcMsg.Msg msg) {
         long toUid = msg.getToUid();
-        System.out.println("收到踢人消息，toUid="+toUid);
-
+        System.out.println("收到踢人消息，toUid=" + toUid);
+        Jedis jedis = null;
+        try {
+            jedis = RedisFactory.getJedis();
+            // 这里不能清除redis中的session，并发问题，可能会把新的新的连接的session清除掉，所以这里等新的会话直接覆盖掉旧的会话
+            SessionUtil.clearUserLocalSessionAndCloseChannel(toUid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
         return;
     }
 
