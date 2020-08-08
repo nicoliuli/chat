@@ -13,6 +13,7 @@ import model.chat.MsgType;
 import model.chat.RpcMsg;
 import model.domain.User;
 import redis.clients.jedis.Jedis;
+import session.DistributionSession;
 import session.ServerSession;
 import session.ServerSessionMap;
 
@@ -36,8 +37,6 @@ public class MsgProcessor {
             processorLoginMsg(channel, msg);
         } else if (msg.getMsgType() == MsgType.MSGTYPE_CHAT) { // 聊天消息
             processorChatMsg(msg);
-        } else if(msg.getMsgType() == MsgType.MSGTYPE_KICK){
-            processorKictMsg(msg);
         }
     }
 
@@ -123,17 +122,16 @@ public class MsgProcessor {
         Jedis jedis = null;
         try {
             jedis = RedisFactory.getJedis();
-            kickUser(jedis,msg.getFromUid(),channel);
+         //   kickUser(jedis,msg.getFromUid(),channel);
 
             String userJson = jedis.hget(RedisKey.userMapKey(), msg.getFromUid() + "");
             User u = JSON.parseObject(userJson, User.class);
 
             // 处理本机器内会话
             ServerSession session = new ServerSession(u, channel).bind();
-            ServerSessionMap.add(msg.getFromUid(), session);
-
-            //处理集群会话,value=ip:port
-            jedis.set(RedisKey.sessionStore(msg.getFromUid()),NodeUtil.thisNode());
+         //   ServerSessionMap.add(msg.getFromUid(), session);
+            // 构建分布式session
+            jedis.set(RedisKey.sessionStore(msg.getFromUid()),JsonUtil.distubutionSession2Json(new DistributionSession(msg.getFromUid(),session.getSessionId())));
             // 暂时模拟向其他用户发消息，打通链路
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,8 +155,9 @@ public class MsgProcessor {
             System.out.println("用户没在其他终端登录");
             return;
         }
+        DistributionSession session = JsonUtil.json2DistributionSession(sessionStr);
         // 当前用户在其他终端登录，但是channel连接在本server上
-        if (sessionStr.equals(NodeUtil.thisNode())) {
+        if (session.buildNodeStr().equals(equals(NodeUtil.thisNode()))) {
             System.out.println("用户终端登录，会话在本地");
             SessionUtil.clearUserSessionAndCloseChannel(jedis,uid);
             return;
@@ -202,8 +201,7 @@ public class MsgProcessor {
         Jedis jedis = null;
         try {
             jedis = RedisFactory.getJedis();
-            // 这里不能清除redis中的session，并发问题，可能会把新的新的连接的session清除掉，所以这里等新的会话直接覆盖掉旧的会话
-            SessionUtil.clearUserLocalSessionAndCloseChannel(toUid);
+            SessionUtil.clearUserSessionAndCloseChannel(jedis,toUid);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

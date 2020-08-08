@@ -5,6 +5,7 @@ import constans.RedisKey;
 import io.netty.util.internal.StringUtil;
 import model.chat.RpcMsg;
 import redis.clients.jedis.Jedis;
+import session.DistributionSession;
 import session.ServerSession;
 import session.ServerSessionMap;
 
@@ -31,12 +32,12 @@ public class SendMsgUtil {
                 System.out.println("uid=" + toUid + "的用户没有登录");
                 return;
             }
-            String[] hostPort = sessionStr.split(":");
+            DistributionSession distributionSession = JsonUtil.json2DistributionSession(sessionStr);
             // 发给对应节点的所监听的队列
             String jsonMsg = JSON.toJSONString(ChatMsgUtil.rpcMsg2ChatMsg(msg));
             System.out.println("序列化后的jsonMsg=" + jsonMsg);
-            jedis.lpush(NodeUtil.node(hostPort[0], Integer.parseInt(hostPort[1])), jsonMsg);
-            System.out.println("消息发向" + hostPort[0] + ":" + hostPort[1] + "节点");
+            jedis.lpush(NodeUtil.node(distributionSession.getHost(), distributionSession.getPort()), jsonMsg);
+            System.out.println("消息发向" +distributionSession.getHost()+ ":" + distributionSession.getPort() + "节点");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

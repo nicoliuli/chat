@@ -26,20 +26,4 @@ public class SessionUtil {
         //删除集群会话
         jedis.del(RedisKey.sessionStore(uid));
     }
-
-    /**
-     * 清除本地的session，并关闭channel
-     * @param uid
-     */
-    public static void clearUserLocalSessionAndCloseChannel(Long uid) {
-        // 删除本地会话
-        ServerSession session = ServerSessionMap.getSession(uid);
-        if (session != null) {
-            Channel ch = session.getChannel();
-            if (ch != null) {
-                ch.close();
-            }
-        }
-        ServerSessionMap.removeSession(uid);
-    }
 }
