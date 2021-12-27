@@ -92,6 +92,7 @@ public class NettyClient {
             ch.pipeline().addLast(new ProtobufEncoder());
             // b1
             // b12
+            // b13
         }
     }
 
