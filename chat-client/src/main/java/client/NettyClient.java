@@ -90,6 +90,7 @@ public class NettyClient {
             //out编码
             ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
             ch.pipeline().addLast(new ProtobufEncoder());
+            // b1
         }
     }
 
